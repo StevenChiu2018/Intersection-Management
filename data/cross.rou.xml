@@ -1,0 +1,7 @@
+<routes>
+        <vType id="typeWE" accel="2" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="70.0" guiShape="passenger" carFollowModel="CACC"/>
+        <vehicle id="0" type="typeWE" depart="0" color="1,0,0" personNumber="2">
+            <route edges="66i"/>
+        </vehicle>
+        <route id="line" edges="66i" />
+</routes>
