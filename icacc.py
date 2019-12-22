@@ -36,10 +36,19 @@ import traci  # noqa
 def generate_routefile():
     random.seed(42)  # make tests reproducible
     N = 3600  # number of time steps
-    # demand per second from different directions
-    pWE = 1. / 10
-    pEW = 1. / 11
-    pNS = 1. / 30
+    # demand per second from different directions (probabilities)
+    pWE = 1. / 10   # vehicles from west lane
+    pWN = 1. / 10
+    pWS = 1. / 10
+    pWE = 1. / 10   # vehicles from west lane
+    pWN = 1. / 10
+    pWS = 1. / 10
+    pWE = 1. / 10   # vehicles from west lane
+    pWN = 1. / 10
+    pWS = 1. / 10
+    pWE = 1. / 10   # vehicles from west lane
+    pWN = 1. / 10
+    pWS = 1. / 10
     with open("data/cross.rou.xml", "w") as routes:
         print("""<routes>
         <vType id="typeWE" accel="2" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="70.0" \
