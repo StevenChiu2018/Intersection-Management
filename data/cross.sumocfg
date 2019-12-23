@@ -6,8 +6,8 @@
         <route-files value="cross.rou.xml"/>
     </input>
     <time>
-        <begin value="54000"/>
-        <end value="54900"/>
+        <begin value="0"/>
+        <end value="4000"/>
     </time>
     <time-to-teleport value="-1"/>
 </configuration>
