@@ -151,8 +151,8 @@ def run():
     # traci.trafficlight.setPhase("0", 2)
     while step < 1000:
         traci.simulationStep()
-        if step % 10 == 0:
-            traci.vehicle.setSpeed("0", random.uniform(30, 50))
+        # if step % 10 == 0:
+        #     traci.vehicle.setSpeed("0", random.uniform(30, 50))
         step += 1
     # while traci.simulation.getMinExpectedNumber() > 0:
     #     traci.simulationStep()
