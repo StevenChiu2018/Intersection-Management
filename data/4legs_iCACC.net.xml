@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 12/19/19 13:28:59 by Eclipse SUMO netedit Version 1.4.0
+<!-- generated on 12/23/19 14:16:59 by Eclipse SUMO netedit Version 1.4.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\_Programs\SumoSimulation\Project_4legs\4legs_iCACC.net.xml"/>
+        <sumo-net-file value="C:\_Programs\_Intelligent%20Vehicle%20Project\Intersection-Management\data\4legs_iCACC.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\_Programs\SumoSimulation\Project_4legs\4legs_iCACC.net.xml"/>
+        <output-file value="C:\_Programs\_Intelligent%20Vehicle%20Project\Intersection-Management\data\4legs_iCACC.net.xml"/>
     </output>
 
     <processing>
