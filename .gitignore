@@ -127,4 +127,5 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-/cross.rou.xml
+data/cross.rou.xml
+/tripinfo.xml
