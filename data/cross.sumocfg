@@ -7,7 +7,9 @@
     </input>
     <time>
         <begin value="0"/>
-        <end value="4000"/>
+        <end value="40000"/>
+        <step-length value="0.05"/>
+        <default.action-step-length value="0.1"/>
     </time>
     <time-to-teleport value="-1"/>
 </configuration>

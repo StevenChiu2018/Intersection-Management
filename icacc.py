@@ -33,9 +33,15 @@ from sumolib import checkBinary  # noqa
 import traci  # noqa
 
 
+SimulationStepLength = 0.05
+SimulationPeriod = 1800
+SimulationEnding = 2000
+SimulationDuration = SimulationEnding/SimulationStepLength
+print("Duration of Simulation(steps): " + str(SimulationDuration))
+
 def generate_routefile():
     random.seed(42)  # make tests reproducible
-    N = 3600  # number of time steps
+    N = SimulationPeriod  # number of time steps
     # demand per second from different directions (probabilities)
     pWE = 1. / 10   # vehicles from west lane
     pWN = 1. / 12
@@ -149,7 +155,7 @@ def run():
     step = 0
     # we start with phase 2 where EW has green
     # traci.trafficlight.setPhase("0", 2)
-    while step < 1000:
+    while step < SimulationDuration:
         traci.simulationStep()
         # if step % 10 == 0:
         #     traci.vehicle.setSpeed("0", random.uniform(30, 50))
