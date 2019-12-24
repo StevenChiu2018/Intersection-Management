@@ -33,46 +33,110 @@ from sumolib import checkBinary  # noqa
 import traci  # noqa
 
 
+SimulationStepLength = 0.05
+SimulationPeriod = 1800
+SimulationEnding = 2000
+SimulationDuration = SimulationEnding/SimulationStepLength
+print("Duration of Simulation(steps): " + str(SimulationDuration))
+
 def generate_routefile():
     random.seed(42)  # make tests reproducible
-    N = 3600  # number of time steps
-    # demand per second from different directions
-    pWE = 1. / 10
-    pEW = 1. / 11
-    pNS = 1. / 30
+    N = SimulationPeriod  # number of time steps
+    # demand per second from different directions (probabilities)
+    pWE = 1. / 10   # vehicles from west lane
+    pWN = 1. / 12
+    pWS = 1. / 30
+    pEW = 1. / 12   # vehicles from east lane
+    pEN = 1. / 16
+    pES = 1. / 25
+    pNE = 1. / 14   # vehicles from north lane
+    pNW = 1. / 16
+    pNS = 1. / 18
+    pSE = 1. / 12   # vehicles from south lane
+    pSN = 1. / 16
+    pSW = 1. / 20
     with open("data/cross.rou.xml", "w") as routes:
-        print("""<routes>
-        <vType id="typeWE" accel="2" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="70.0" \
-guiShape="passenger" carFollowModel="CACC"/>
-        <vehicle id="0" type="typeWE" depart="0" color="1,0,0" personNumber="2">
-            <route edges="66i"/>
-        </vehicle>
-        <route id="line" edges="66i" />""", file=routes)
-#         print("""<routes>
-#         <vType id="typeWE" accel="2" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="70.0" \
-# guiShape="passenger" carFollowModel="CACC"/>
-#         <vType id="typeNS" accel="0.8" decel="4.5" sigma="0.5" length="7" minGap="3" maxSpeed="25" guiShape="bus"/>
+        print("""<routes>""", file = routes)
+        # vehicle configuration of simulation
+        print("""
+        <vType id="VehicleA" accel="3.5" decel="5.0" sigma="0" length="5" minGap="2.5" maxSpeed="70.0" \
+        guiShape="passenger" carFollowModel="CACC"/>
+        """, file=routes)
 
-#         <vehicle id="0" type="typeWE" depart="0" color="1,0,0" personNumber="2">
-#             <route edges="51o 1i 2o 52i"/>
-#         </vehicle>
-#         <route id="right" edges="51o 1i 2o 52i" />
-#         <route id="left" edges="52o 2i 1o 51i" />
-#         <route id="down" edges="54o 4i 3o 53i" />""", file=routes)
-        # vehNr = 0
-        # for i in range(N):
-        #     if random.uniform(0, 1) < pWE:
-        #         print('    <vehicle id="right_%i" type="typeWE" route="right" depart="%i" />' % (
-        #             vehNr, i), file=routes)
-        #         vehNr += 1
-        #     if random.uniform(0, 1) < pEW:
-        #         print('    <vehicle id="left_%i" type="typeWE" route="left" depart="%i" />' % (
-        #             vehNr, i), file=routes)
-        #         vehNr += 1
-        #     if random.uniform(0, 1) < pNS:
-        #         print('    <vehicle id="down_%i" type="typeNS" route="down" depart="%i" color="1,0,0"/>' % (
-        #             vehNr, i), file=routes)
-        #         vehNr += 1
+        # route configuration of simulation
+        print("""
+        <route id="route_WE" edges="L1 L2 L11 L12" />
+        <route id="route_WN" edges="L1 L2 L15 L16" />
+        <route id="route_WS" edges="L1 L2 L7 L8" />
+        <route id="route_EW" edges="L9 L10 L3 L4" />
+        <route id="route_EN" edges="L9 L10 L15 L16" />
+        <route id="route_ES" edges="L9 L10 L7 L8" />
+        <route id="route_NE" edges="L13 L14 L11 L12" />
+        <route id="route_NW" edges="L13 L14 L3 L4" />
+        <route id="route_NS" edges="L13 L14 L7 L8" />
+        <route id="route_SE" edges="L5 L6 L11 L12" />
+        <route id="route_SN" edges="L5 L6 L15 L16" />
+        <route id="route_SW" edges="L5 L6 L3 L4" />
+        """, file=routes)
+
+        # generate vehicles randomly
+        vehNr = 0
+        for i in range(N):
+            # vehicles dirving from west
+            if random.uniform(0, 1) < pWE:
+                print('    <vehicle id="vWE_%i" type="VehicleA" route="route_WE" depart="%i" />' % (
+                    vehNr, i), file=routes)
+                vehNr += 1
+            if random.uniform(0, 1) < pWN:
+                print('    <vehicle id="vWN_%i" type="VehicleA" route="route_WN" depart="%i" />' % (
+                    vehNr, i), file=routes)
+                vehNr += 1
+            if random.uniform(0, 1) < pWS:
+                print('    <vehicle id="vWS_%i" type="VehicleA" route="route_WS" depart="%i" />' % (
+                    vehNr, i), file=routes)
+                vehNr += 1
+
+            # vehicles dirving from east
+            if random.uniform(0, 1) < pEW:
+                print('    <vehicle id="vEW_%i" type="VehicleA" route="route_EW" depart="%i" />' % (
+                    vehNr, i), file=routes)
+                vehNr += 1
+            if random.uniform(0, 1) < pEN:
+                print('    <vehicle id="vEN_%i" type="VehicleA" route="route_EN" depart="%i" />' % (
+                    vehNr, i), file=routes)
+                vehNr += 1
+            if random.uniform(0, 1) < pES:
+                print('    <vehicle id="vES_%i" type="VehicleA" route="route_ES" depart="%i" />' % (
+                    vehNr, i), file=routes)
+                vehNr += 1
+
+            # vehicles dirving from south
+            if random.uniform(0, 1) < pSE:
+                print('    <vehicle id="vSE_%i" type="VehicleA" route="route_SE" depart="%i" />' % (
+                    vehNr, i), file=routes)
+                vehNr += 1
+            if random.uniform(0, 1) < pSN:
+                print('    <vehicle id="vSN_%i" type="VehicleA" route="route_SN" depart="%i" />' % (
+                    vehNr, i), file=routes)
+                vehNr += 1
+            if random.uniform(0, 1) < pSW:
+                print('    <vehicle id="vSW_%i" type="VehicleA" route="route_SW" depart="%i" />' % (
+                    vehNr, i), file=routes)
+                vehNr += 1
+
+            # vehicles dirving from north
+            if random.uniform(0, 1) < pNE:
+                print('    <vehicle id="vNE_%i" type="VehicleA" route="route_NE" depart="%i" />' % (
+                    vehNr, i), file=routes)
+                vehNr += 1
+            if random.uniform(0, 1) < pNS:
+                print('    <vehicle id="vNS_%i" type="VehicleA" route="route_NS" depart="%i" />' % (
+                    vehNr, i), file=routes)
+                vehNr += 1
+            if random.uniform(0, 1) < pNW:
+                print('    <vehicle id="vNW_%i" type="VehicleA" route="route_NW" depart="%i" />' % (
+                    vehNr, i), file=routes)
+                vehNr += 1
         print("</routes>", file=routes)
         
 # The program looks like this
@@ -91,10 +155,10 @@ def run():
     step = 0
     # we start with phase 2 where EW has green
     # traci.trafficlight.setPhase("0", 2)
-    while step < 1000:
+    while step < SimulationDuration:
         traci.simulationStep()
-        if step % 10 == 0:
-            traci.vehicle.setSpeed("0", random.uniform(30, 50))
+        # if step % 10 == 0:
+        #     traci.vehicle.setSpeed("0", random.uniform(30, 50))
         step += 1
     # while traci.simulation.getMinExpectedNumber() > 0:
     #     traci.simulationStep()
