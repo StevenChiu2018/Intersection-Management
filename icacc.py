@@ -59,8 +59,8 @@ def generate_routefile():
         print("""<routes>""", file = routes)
         # vehicle configuration of simulation
         print("""
-        <vType id="VehicleA" accel="3.5" decel="5.0" sigma="0" length="5" minGap="2.5" maxSpeed="70.0"
-        guiShape="passenger" carFollowModel="CACC"/>
+        <vType id="VehicleA" accel="3.5" decel="5.0" sigma="0" length="5" minGap="0.0" maxSpeed="15.0" speedFactor="1.0"
+        guiShape="passenger" speedDev="0" />
         """, file=routes)
 
         # route configuration of simulation
@@ -155,23 +155,27 @@ def run():
     step = 0
     # we start with phase 2 where EW has green
     # traci.trafficlight.setPhase("0", 2)
-    while step < SimulationDuration:
+    traci.vehicle.add("newVeh", "route_WN", typeID="VehicleA", departSpeed="15.0", departLane="2")
+    traci.vehicle.setSpeedMode("newVeh", 0)
+    traci.vehicle.add("newVeh2", "route_WE", typeID="VehicleA", departSpeed="15.0", departLane="1")
+    traci.vehicle.setSpeedMode("newVeh2", 0)
+    traci.vehicle.add("newVeh3", "route_WS", typeID="VehicleA", departSpeed="15.0", departLane="0")
+    traci.vehicle.setSpeedMode("newVeh3", 0)
+    traci.vehicle.add("newVeh4", "route_WE", typeID="VehicleA", departSpeed="15.0", departLane="1", depart="1")
+    traci.vehicle.setSpeedMode("newVeh4", 0)
+    while step < 1000:
         traci.simulationStep()
+        # traci.vehicle.setSpeed("newVeh", 20.0)
+        # # traci.vehicle.setSpeedMode("newVeh", 0)
+        # traci.vehicle.setSpeed("newVeh2", 20.0)
+        # # traci.vehicle.setSpeedMode("newVeh2", 0)
+        # traci.vehicle.setSpeed("newVeh3", 20.0)
+        # # traci.vehicle.setSpeedMode("newVeh3", 0)
+        # traci.vehicle.setSpeed("newVeh4", 30.0)
+        # # traci.vehicle.setSpeedMode("newVeh4", 0)
         # if step % 10 == 0:
         #     traci.vehicle.setSpeed("0", random.uniform(30, 50))
         step += 1
-    # while traci.simulation.getMinExpectedNumber() > 0:
-    #     traci.simulationStep()
-    #     traci.vehicle.setSpeed("0", 50.0)
-    #     if traci.trafficlight.getPhase("0") == 2:
-    #         # we are not already switching
-    #         if traci.inductionloop.getLastStepVehicleNumber("0") > 0:
-    #             # there is a vehicle from the north, switch
-    #             traci.trafficlight.setPhase("0", 3)
-    #         else:
-    #             # otherwise try to keep green for EW
-    #             traci.trafficlight.setPhase("0", 2)
-    #     step += 1
     traci.close()
     sys.stdout.flush()
 
