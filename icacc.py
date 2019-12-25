@@ -59,7 +59,7 @@ def generate_routefile():
         print("""<routes>""", file = routes)
         # vehicle configuration of simulation
         print("""
-        <vType id="VehicleA" accel="3.5" decel="5.0" sigma="0" length="5" minGap="2.5" maxSpeed="70.0" \
+        <vType id="VehicleA" accel="3.5" decel="5.0" sigma="0" length="5" minGap="2.5" maxSpeed="70.0"
         guiShape="passenger" carFollowModel="CACC"/>
         """, file=routes)
 
@@ -80,63 +80,63 @@ def generate_routefile():
         """, file=routes)
 
         # generate vehicles randomly
-        vehNr = 0
-        for i in range(N):
-            # vehicles dirving from west
-            if random.uniform(0, 1) < pWE:
-                print('    <vehicle id="vWE_%i" type="VehicleA" route="route_WE" depart="%i" />' % (
-                    vehNr, i), file=routes)
-                vehNr += 1
-            if random.uniform(0, 1) < pWN:
-                print('    <vehicle id="vWN_%i" type="VehicleA" route="route_WN" depart="%i" />' % (
-                    vehNr, i), file=routes)
-                vehNr += 1
-            if random.uniform(0, 1) < pWS:
-                print('    <vehicle id="vWS_%i" type="VehicleA" route="route_WS" depart="%i" />' % (
-                    vehNr, i), file=routes)
-                vehNr += 1
+        # vehNr = 0
+        # for i in range(N):
+        #     # vehicles dirving from west
+        #     if random.uniform(0, 1) < pWE:
+        #         print('    <vehicle id="vWE_%i" type="VehicleA" route="route_WE" depart="%i" />' % (
+        #             vehNr, i), file=routes)
+        #         vehNr += 1
+        #     if random.uniform(0, 1) < pWN:
+        #         print('    <vehicle id="vWN_%i" type="VehicleA" route="route_WN" depart="%i" />' % (
+        #             vehNr, i), file=routes)
+        #         vehNr += 1
+        #     if random.uniform(0, 1) < pWS:
+        #         print('    <vehicle id="vWS_%i" type="VehicleA" route="route_WS" depart="%i" />' % (
+        #             vehNr, i), file=routes)
+        #         vehNr += 1
 
-            # vehicles dirving from east
-            if random.uniform(0, 1) < pEW:
-                print('    <vehicle id="vEW_%i" type="VehicleA" route="route_EW" depart="%i" />' % (
-                    vehNr, i), file=routes)
-                vehNr += 1
-            if random.uniform(0, 1) < pEN:
-                print('    <vehicle id="vEN_%i" type="VehicleA" route="route_EN" depart="%i" />' % (
-                    vehNr, i), file=routes)
-                vehNr += 1
-            if random.uniform(0, 1) < pES:
-                print('    <vehicle id="vES_%i" type="VehicleA" route="route_ES" depart="%i" />' % (
-                    vehNr, i), file=routes)
-                vehNr += 1
+        #     # vehicles dirving from east
+        #     if random.uniform(0, 1) < pEW:
+        #         print('    <vehicle id="vEW_%i" type="VehicleA" route="route_EW" depart="%i" />' % (
+        #             vehNr, i), file=routes)
+        #         vehNr += 1
+        #     if random.uniform(0, 1) < pEN:
+        #         print('    <vehicle id="vEN_%i" type="VehicleA" route="route_EN" depart="%i" />' % (
+        #             vehNr, i), file=routes)
+        #         vehNr += 1
+        #     if random.uniform(0, 1) < pES:
+        #         print('    <vehicle id="vES_%i" type="VehicleA" route="route_ES" depart="%i" />' % (
+        #             vehNr, i), file=routes)
+        #         vehNr += 1
 
-            # vehicles dirving from south
-            if random.uniform(0, 1) < pSE:
-                print('    <vehicle id="vSE_%i" type="VehicleA" route="route_SE" depart="%i" />' % (
-                    vehNr, i), file=routes)
-                vehNr += 1
-            if random.uniform(0, 1) < pSN:
-                print('    <vehicle id="vSN_%i" type="VehicleA" route="route_SN" depart="%i" />' % (
-                    vehNr, i), file=routes)
-                vehNr += 1
-            if random.uniform(0, 1) < pSW:
-                print('    <vehicle id="vSW_%i" type="VehicleA" route="route_SW" depart="%i" />' % (
-                    vehNr, i), file=routes)
-                vehNr += 1
+        #     # vehicles dirving from south
+        #     if random.uniform(0, 1) < pSE:
+        #         print('    <vehicle id="vSE_%i" type="VehicleA" route="route_SE" depart="%i" />' % (
+        #             vehNr, i), file=routes)
+        #         vehNr += 1
+        #     if random.uniform(0, 1) < pSN:
+        #         print('    <vehicle id="vSN_%i" type="VehicleA" route="route_SN" depart="%i" />' % (
+        #             vehNr, i), file=routes)
+        #         vehNr += 1
+        #     if random.uniform(0, 1) < pSW:
+        #         print('    <vehicle id="vSW_%i" type="VehicleA" route="route_SW" depart="%i" />' % (
+        #             vehNr, i), file=routes)
+        #         vehNr += 1
 
-            # vehicles dirving from north
-            if random.uniform(0, 1) < pNE:
-                print('    <vehicle id="vNE_%i" type="VehicleA" route="route_NE" depart="%i" />' % (
-                    vehNr, i), file=routes)
-                vehNr += 1
-            if random.uniform(0, 1) < pNS:
-                print('    <vehicle id="vNS_%i" type="VehicleA" route="route_NS" depart="%i" />' % (
-                    vehNr, i), file=routes)
-                vehNr += 1
-            if random.uniform(0, 1) < pNW:
-                print('    <vehicle id="vNW_%i" type="VehicleA" route="route_NW" depart="%i" />' % (
-                    vehNr, i), file=routes)
-                vehNr += 1
+        #     # vehicles dirving from north
+        #     if random.uniform(0, 1) < pNE:
+        #         print('    <vehicle id="vNE_%i" type="VehicleA" route="route_NE" depart="%i" />' % (
+        #             vehNr, i), file=routes)
+        #         vehNr += 1
+        #     if random.uniform(0, 1) < pNS:
+        #         print('    <vehicle id="vNS_%i" type="VehicleA" route="route_NS" depart="%i" />' % (
+        #             vehNr, i), file=routes)
+        #         vehNr += 1
+        #     if random.uniform(0, 1) < pNW:
+        #         print('    <vehicle id="vNW_%i" type="VehicleA" route="route_NW" depart="%i" />' % (
+        #             vehNr, i), file=routes)
+        #         vehNr += 1
         print("</routes>", file=routes)
         
 # The program looks like this
