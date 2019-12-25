@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 12/23/19 18:58:16 by Eclipse SUMO netedit Version 1.4.0
+<!-- generated on 12/25/19 21:23:04 by Eclipse SUMO netedit Version 1.4.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -41,20 +41,20 @@
     <location netOffset="0.00,0.00" convBoundary="-150.00,-150.00,150.00,150.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <edge id=":E2_0" function="internal">
-        <lane id=":E2_0_0" index="0" speed="20.00" length="0.10" width="3.50" shape="100.00,8.75 100.00,8.75"/>
-        <lane id=":E2_0_1" index="1" speed="20.00" length="0.10" width="3.50" shape="100.00,5.25 100.00,5.25"/>
-        <lane id=":E2_0_2" index="2" speed="20.00" length="0.10" width="3.50" shape="100.00,1.75 100.00,1.75"/>
+        <lane id=":E2_0_0" index="0" speed="15.00" length="0.10" width="3.50" shape="100.00,8.75 100.00,8.75"/>
+        <lane id=":E2_0_1" index="1" speed="15.00" length="0.10" width="3.50" shape="100.00,5.25 100.00,5.25"/>
+        <lane id=":E2_0_2" index="2" speed="15.00" length="0.10" width="3.50" shape="100.00,1.75 100.00,1.75"/>
     </edge>
     <edge id=":E2_3" function="internal">
-        <lane id=":E2_3_0" index="0" speed="20.00" length="0.10" width="3.50" shape="100.00,-8.75 100.00,-8.75"/>
-        <lane id=":E2_3_1" index="1" speed="20.00" length="0.10" width="3.50" shape="100.00,-5.25 100.00,-5.25"/>
-        <lane id=":E2_3_2" index="2" speed="20.00" length="0.10" width="3.50" shape="100.00,-1.75 100.00,-1.75"/>
+        <lane id=":E2_3_0" index="0" speed="15.00" length="0.10" width="3.50" shape="100.00,-8.75 100.00,-8.75"/>
+        <lane id=":E2_3_1" index="1" speed="15.00" length="0.10" width="3.50" shape="100.00,-5.25 100.00,-5.25"/>
+        <lane id=":E2_3_2" index="2" speed="15.00" length="0.10" width="3.50" shape="100.00,-1.75 100.00,-1.75"/>
     </edge>
     <edge id=":IB_0" function="internal">
         <lane id=":IB_0_0" index="0" speed="4.08" length="2.82" width="3.50" shape="-8.75,10.50 -8.86,9.73 -9.19,9.19 -9.73,8.86 -10.50,8.75"/>
     </edge>
     <edge id=":IB_1" function="internal">
-        <lane id=":IB_1_0" index="0" speed="20.00" length="21.00" width="3.50" shape="-5.25,10.50 -5.25,-10.50"/>
+        <lane id=":IB_1_0" index="0" speed="15.00" length="21.00" width="3.50" shape="-5.25,10.50 -5.25,-10.50"/>
     </edge>
     <edge id=":IB_2" function="internal">
         <lane id=":IB_2_0" index="0" speed="9.37" length="12.43" width="3.50" shape="-1.75,10.50 -0.98,5.14 1.31,1.31 3.50,0.00"/>
@@ -66,7 +66,7 @@
         <lane id=":IB_3_0" index="0" speed="4.08" length="2.82" width="3.50" shape="10.50,8.75 9.73,8.86 9.19,9.19 8.86,9.73 8.75,10.50"/>
     </edge>
     <edge id=":IB_4" function="internal">
-        <lane id=":IB_4_0" index="0" speed="20.00" length="21.00" width="3.50" shape="10.50,5.25 -10.50,5.25"/>
+        <lane id=":IB_4_0" index="0" speed="15.00" length="21.00" width="3.50" shape="10.50,5.25 -10.50,5.25"/>
     </edge>
     <edge id=":IB_5" function="internal">
         <lane id=":IB_5_0" index="0" speed="9.37" length="19.76" width="3.50" shape="10.50,1.75 5.14,0.98 1.31,-1.31 -0.98,-5.14 -1.75,-10.50"/>
@@ -75,7 +75,7 @@
         <lane id=":IB_6_0" index="0" speed="4.08" length="2.82" width="3.50" shape="8.75,-10.50 8.86,-9.73 9.19,-9.19 9.73,-8.86 10.50,-8.75"/>
     </edge>
     <edge id=":IB_7" function="internal">
-        <lane id=":IB_7_0" index="0" speed="20.00" length="21.00" width="3.50" shape="5.25,-10.50 5.25,10.50"/>
+        <lane id=":IB_7_0" index="0" speed="15.00" length="21.00" width="3.50" shape="5.25,-10.50 5.25,10.50"/>
     </edge>
     <edge id=":IB_8" function="internal">
         <lane id=":IB_8_0" index="0" speed="9.37" length="12.43" width="3.50" shape="1.75,-10.50 0.98,-5.14 -1.31,-1.31 -3.50,-0.00"/>
@@ -87,121 +87,121 @@
         <lane id=":IB_9_0" index="0" speed="4.08" length="2.82" width="3.50" shape="-10.50,-8.75 -9.73,-8.86 -9.19,-9.19 -8.86,-9.73 -8.75,-10.50"/>
     </edge>
     <edge id=":IB_10" function="internal">
-        <lane id=":IB_10_0" index="0" speed="20.00" length="21.00" width="3.50" shape="-10.50,-5.25 10.50,-5.25"/>
+        <lane id=":IB_10_0" index="0" speed="15.00" length="21.00" width="3.50" shape="-10.50,-5.25 10.50,-5.25"/>
     </edge>
     <edge id=":IB_11" function="internal">
         <lane id=":IB_11_0" index="0" speed="9.37" length="19.76" width="3.50" shape="-10.50,-1.75 -5.14,-0.98 -1.31,1.31 0.98,5.14 1.75,10.50"/>
     </edge>
     <edge id=":N2_0" function="internal">
-        <lane id=":N2_0_0" index="0" speed="20.00" length="0.10" width="3.50" shape="-8.75,100.00 -8.75,100.00"/>
-        <lane id=":N2_0_1" index="1" speed="20.00" length="0.10" width="3.50" shape="-5.25,100.00 -5.25,100.00"/>
-        <lane id=":N2_0_2" index="2" speed="20.00" length="0.10" width="3.50" shape="-1.75,100.00 -1.75,100.00"/>
+        <lane id=":N2_0_0" index="0" speed="15.00" length="0.10" width="3.50" shape="-8.75,100.00 -8.75,100.00"/>
+        <lane id=":N2_0_1" index="1" speed="15.00" length="0.10" width="3.50" shape="-5.25,100.00 -5.25,100.00"/>
+        <lane id=":N2_0_2" index="2" speed="15.00" length="0.10" width="3.50" shape="-1.75,100.00 -1.75,100.00"/>
     </edge>
     <edge id=":N2_3" function="internal">
-        <lane id=":N2_3_0" index="0" speed="20.00" length="0.10" width="3.50" shape="8.75,100.00 8.75,100.00"/>
-        <lane id=":N2_3_1" index="1" speed="20.00" length="0.10" width="3.50" shape="5.25,100.00 5.25,100.00"/>
-        <lane id=":N2_3_2" index="2" speed="20.00" length="0.10" width="3.50" shape="1.75,100.00 1.75,100.00"/>
+        <lane id=":N2_3_0" index="0" speed="15.00" length="0.10" width="3.50" shape="8.75,100.00 8.75,100.00"/>
+        <lane id=":N2_3_1" index="1" speed="15.00" length="0.10" width="3.50" shape="5.25,100.00 5.25,100.00"/>
+        <lane id=":N2_3_2" index="2" speed="15.00" length="0.10" width="3.50" shape="1.75,100.00 1.75,100.00"/>
     </edge>
     <edge id=":S2_0" function="internal">
-        <lane id=":S2_0_0" index="0" speed="20.00" length="0.10" width="3.50" shape="-8.75,-100.00 -8.75,-100.00"/>
-        <lane id=":S2_0_1" index="1" speed="20.00" length="0.10" width="3.50" shape="-5.25,-100.00 -5.25,-100.00"/>
-        <lane id=":S2_0_2" index="2" speed="20.00" length="0.10" width="3.50" shape="-1.75,-100.00 -1.75,-100.00"/>
+        <lane id=":S2_0_0" index="0" speed="15.00" length="0.10" width="3.50" shape="-8.75,-100.00 -8.75,-100.00"/>
+        <lane id=":S2_0_1" index="1" speed="15.00" length="0.10" width="3.50" shape="-5.25,-100.00 -5.25,-100.00"/>
+        <lane id=":S2_0_2" index="2" speed="15.00" length="0.10" width="3.50" shape="-1.75,-100.00 -1.75,-100.00"/>
     </edge>
     <edge id=":S2_3" function="internal">
-        <lane id=":S2_3_0" index="0" speed="20.00" length="0.10" width="3.50" shape="8.75,-100.00 8.75,-100.00"/>
-        <lane id=":S2_3_1" index="1" speed="20.00" length="0.10" width="3.50" shape="5.25,-100.00 5.25,-100.00"/>
-        <lane id=":S2_3_2" index="2" speed="20.00" length="0.10" width="3.50" shape="1.75,-100.00 1.75,-100.00"/>
+        <lane id=":S2_3_0" index="0" speed="15.00" length="0.10" width="3.50" shape="8.75,-100.00 8.75,-100.00"/>
+        <lane id=":S2_3_1" index="1" speed="15.00" length="0.10" width="3.50" shape="5.25,-100.00 5.25,-100.00"/>
+        <lane id=":S2_3_2" index="2" speed="15.00" length="0.10" width="3.50" shape="1.75,-100.00 1.75,-100.00"/>
     </edge>
     <edge id=":W2_0" function="internal">
-        <lane id=":W2_0_0" index="0" speed="20.00" length="0.10" width="3.50" shape="-100.00,8.75 -100.00,8.75"/>
-        <lane id=":W2_0_1" index="1" speed="20.00" length="0.10" width="3.50" shape="-100.00,5.25 -100.00,5.25"/>
-        <lane id=":W2_0_2" index="2" speed="20.00" length="0.10" width="3.50" shape="-100.00,1.75 -100.00,1.75"/>
+        <lane id=":W2_0_0" index="0" speed="15.00" length="0.10" width="3.50" shape="-100.00,8.75 -100.00,8.75"/>
+        <lane id=":W2_0_1" index="1" speed="15.00" length="0.10" width="3.50" shape="-100.00,5.25 -100.00,5.25"/>
+        <lane id=":W2_0_2" index="2" speed="15.00" length="0.10" width="3.50" shape="-100.00,1.75 -100.00,1.75"/>
     </edge>
     <edge id=":W2_3" function="internal">
-        <lane id=":W2_3_0" index="0" speed="20.00" length="0.10" width="3.50" shape="-100.00,-8.75 -100.00,-8.75"/>
-        <lane id=":W2_3_1" index="1" speed="20.00" length="0.10" width="3.50" shape="-100.00,-5.25 -100.00,-5.25"/>
-        <lane id=":W2_3_2" index="2" speed="20.00" length="0.10" width="3.50" shape="-100.00,-1.75 -100.00,-1.75"/>
+        <lane id=":W2_3_0" index="0" speed="15.00" length="0.10" width="3.50" shape="-100.00,-8.75 -100.00,-8.75"/>
+        <lane id=":W2_3_1" index="1" speed="15.00" length="0.10" width="3.50" shape="-100.00,-5.25 -100.00,-5.25"/>
+        <lane id=":W2_3_2" index="2" speed="15.00" length="0.10" width="3.50" shape="-100.00,-1.75 -100.00,-1.75"/>
     </edge>
 
     <edge id="L1" from="W1" to="W2" priority="-1">
-        <lane id="L1_0" index="0" speed="20.00" length="50.00" width="3.50" shape="-150.00,-8.75 -100.00,-8.75"/>
-        <lane id="L1_1" index="1" speed="20.00" length="50.00" width="3.50" shape="-150.00,-5.25 -100.00,-5.25"/>
-        <lane id="L1_2" index="2" speed="20.00" length="50.00" width="3.50" shape="-150.00,-1.75 -100.00,-1.75"/>
+        <lane id="L1_0" index="0" speed="15.00" length="50.00" width="3.50" shape="-150.00,-8.75 -100.00,-8.75"/>
+        <lane id="L1_1" index="1" speed="15.00" length="50.00" width="3.50" shape="-150.00,-5.25 -100.00,-5.25"/>
+        <lane id="L1_2" index="2" speed="15.00" length="50.00" width="3.50" shape="-150.00,-1.75 -100.00,-1.75"/>
     </edge>
     <edge id="L10" from="E2" to="IB" priority="-1" length="100.00">
-        <lane id="L10_0" index="0" speed="20.00" length="100.00" width="3.50" shape="100.00,8.75 10.50,8.75"/>
-        <lane id="L10_1" index="1" speed="20.00" length="100.00" width="3.50" shape="100.00,5.25 10.50,5.25"/>
-        <lane id="L10_2" index="2" speed="20.00" length="100.00" width="3.50" shape="100.00,1.75 10.50,1.75"/>
+        <lane id="L10_0" index="0" speed="15.00" length="100.00" width="3.50" shape="100.00,8.75 10.50,8.75"/>
+        <lane id="L10_1" index="1" speed="15.00" length="100.00" width="3.50" shape="100.00,5.25 10.50,5.25"/>
+        <lane id="L10_2" index="2" speed="15.00" length="100.00" width="3.50" shape="100.00,1.75 10.50,1.75"/>
     </edge>
     <edge id="L11" from="IB" to="E2" priority="-1" length="100.00">
-        <lane id="L11_0" index="0" speed="20.00" length="100.00" width="3.50" shape="10.50,-8.75 100.00,-8.75"/>
-        <lane id="L11_1" index="1" speed="20.00" length="100.00" width="3.50" shape="10.50,-5.25 100.00,-5.25"/>
-        <lane id="L11_2" index="2" speed="20.00" length="100.00" width="3.50" shape="10.50,-1.75 100.00,-1.75"/>
+        <lane id="L11_0" index="0" speed="15.00" length="100.00" width="3.50" shape="10.50,-8.75 100.00,-8.75"/>
+        <lane id="L11_1" index="1" speed="15.00" length="100.00" width="3.50" shape="10.50,-5.25 100.00,-5.25"/>
+        <lane id="L11_2" index="2" speed="15.00" length="100.00" width="3.50" shape="10.50,-1.75 100.00,-1.75"/>
     </edge>
     <edge id="L12" from="E2" to="E1" priority="-1">
-        <lane id="L12_0" index="0" speed="20.00" length="50.00" width="3.50" shape="100.00,-8.75 150.00,-8.75"/>
-        <lane id="L12_1" index="1" speed="20.00" length="50.00" width="3.50" shape="100.00,-5.25 150.00,-5.25"/>
-        <lane id="L12_2" index="2" speed="20.00" length="50.00" width="3.50" shape="100.00,-1.75 150.00,-1.75"/>
+        <lane id="L12_0" index="0" speed="15.00" length="50.00" width="3.50" shape="100.00,-8.75 150.00,-8.75"/>
+        <lane id="L12_1" index="1" speed="15.00" length="50.00" width="3.50" shape="100.00,-5.25 150.00,-5.25"/>
+        <lane id="L12_2" index="2" speed="15.00" length="50.00" width="3.50" shape="100.00,-1.75 150.00,-1.75"/>
     </edge>
     <edge id="L13" from="N1" to="N2" priority="-1">
-        <lane id="L13_0" index="0" speed="20.00" length="50.00" width="3.50" shape="-8.75,150.00 -8.75,100.00"/>
-        <lane id="L13_1" index="1" speed="20.00" length="50.00" width="3.50" shape="-5.25,150.00 -5.25,100.00"/>
-        <lane id="L13_2" index="2" speed="20.00" length="50.00" width="3.50" shape="-1.75,150.00 -1.75,100.00"/>
+        <lane id="L13_0" index="0" speed="15.00" length="50.00" width="3.50" shape="-8.75,150.00 -8.75,100.00"/>
+        <lane id="L13_1" index="1" speed="15.00" length="50.00" width="3.50" shape="-5.25,150.00 -5.25,100.00"/>
+        <lane id="L13_2" index="2" speed="15.00" length="50.00" width="3.50" shape="-1.75,150.00 -1.75,100.00"/>
     </edge>
     <edge id="L14" from="N2" to="IB" priority="-1" length="100.00">
-        <lane id="L14_0" index="0" speed="20.00" length="100.00" width="3.50" shape="-8.75,100.00 -8.75,10.50"/>
-        <lane id="L14_1" index="1" speed="20.00" length="100.00" width="3.50" shape="-5.25,100.00 -5.25,10.50"/>
-        <lane id="L14_2" index="2" speed="20.00" length="100.00" width="3.50" shape="-1.75,100.00 -1.75,10.50"/>
+        <lane id="L14_0" index="0" speed="15.00" length="100.00" width="3.50" shape="-8.75,100.00 -8.75,10.50"/>
+        <lane id="L14_1" index="1" speed="15.00" length="100.00" width="3.50" shape="-5.25,100.00 -5.25,10.50"/>
+        <lane id="L14_2" index="2" speed="15.00" length="100.00" width="3.50" shape="-1.75,100.00 -1.75,10.50"/>
     </edge>
     <edge id="L15" from="IB" to="N2" priority="-1" length="100.00">
-        <lane id="L15_0" index="0" speed="20.00" length="100.00" width="3.50" shape="8.75,10.50 8.75,100.00"/>
-        <lane id="L15_1" index="1" speed="20.00" length="100.00" width="3.50" shape="5.25,10.50 5.25,100.00"/>
-        <lane id="L15_2" index="2" speed="20.00" length="100.00" width="3.50" shape="1.75,10.50 1.75,100.00"/>
+        <lane id="L15_0" index="0" speed="15.00" length="100.00" width="3.50" shape="8.75,10.50 8.75,100.00"/>
+        <lane id="L15_1" index="1" speed="15.00" length="100.00" width="3.50" shape="5.25,10.50 5.25,100.00"/>
+        <lane id="L15_2" index="2" speed="15.00" length="100.00" width="3.50" shape="1.75,10.50 1.75,100.00"/>
     </edge>
     <edge id="L16" from="N2" to="N1" priority="-1">
-        <lane id="L16_0" index="0" speed="20.00" length="50.00" width="3.50" shape="8.75,100.00 8.75,150.00"/>
-        <lane id="L16_1" index="1" speed="20.00" length="50.00" width="3.50" shape="5.25,100.00 5.25,150.00"/>
-        <lane id="L16_2" index="2" speed="20.00" length="50.00" width="3.50" shape="1.75,100.00 1.75,150.00"/>
+        <lane id="L16_0" index="0" speed="15.00" length="50.00" width="3.50" shape="8.75,100.00 8.75,150.00"/>
+        <lane id="L16_1" index="1" speed="15.00" length="50.00" width="3.50" shape="5.25,100.00 5.25,150.00"/>
+        <lane id="L16_2" index="2" speed="15.00" length="50.00" width="3.50" shape="1.75,100.00 1.75,150.00"/>
     </edge>
     <edge id="L2" from="W2" to="IB" priority="-1" length="100.00">
-        <lane id="L2_0" index="0" speed="20.00" length="100.00" width="3.50" shape="-100.00,-8.75 -10.50,-8.75"/>
-        <lane id="L2_1" index="1" speed="20.00" length="100.00" width="3.50" shape="-100.00,-5.25 -10.50,-5.25"/>
-        <lane id="L2_2" index="2" speed="20.00" length="100.00" width="3.50" shape="-100.00,-1.75 -10.50,-1.75"/>
+        <lane id="L2_0" index="0" speed="15.00" length="100.00" width="3.50" shape="-100.00,-8.75 -10.50,-8.75"/>
+        <lane id="L2_1" index="1" speed="15.00" length="100.00" width="3.50" shape="-100.00,-5.25 -10.50,-5.25"/>
+        <lane id="L2_2" index="2" speed="15.00" length="100.00" width="3.50" shape="-100.00,-1.75 -10.50,-1.75"/>
     </edge>
     <edge id="L3" from="IB" to="W2" priority="-1" length="100.00">
-        <lane id="L3_0" index="0" speed="20.00" length="100.00" width="3.50" shape="-10.50,8.75 -100.00,8.75"/>
-        <lane id="L3_1" index="1" speed="20.00" length="100.00" width="3.50" shape="-10.50,5.25 -100.00,5.25"/>
-        <lane id="L3_2" index="2" speed="20.00" length="100.00" width="3.50" shape="-10.50,1.75 -100.00,1.75"/>
+        <lane id="L3_0" index="0" speed="15.00" length="100.00" width="3.50" shape="-10.50,8.75 -100.00,8.75"/>
+        <lane id="L3_1" index="1" speed="15.00" length="100.00" width="3.50" shape="-10.50,5.25 -100.00,5.25"/>
+        <lane id="L3_2" index="2" speed="15.00" length="100.00" width="3.50" shape="-10.50,1.75 -100.00,1.75"/>
     </edge>
     <edge id="L4" from="W2" to="W1" priority="-1">
-        <lane id="L4_0" index="0" speed="20.00" length="50.00" width="3.50" shape="-100.00,8.75 -150.00,8.75"/>
-        <lane id="L4_1" index="1" speed="20.00" length="50.00" width="3.50" shape="-100.00,5.25 -150.00,5.25"/>
-        <lane id="L4_2" index="2" speed="20.00" length="50.00" width="3.50" shape="-100.00,1.75 -150.00,1.75"/>
+        <lane id="L4_0" index="0" speed="15.00" length="50.00" width="3.50" shape="-100.00,8.75 -150.00,8.75"/>
+        <lane id="L4_1" index="1" speed="15.00" length="50.00" width="3.50" shape="-100.00,5.25 -150.00,5.25"/>
+        <lane id="L4_2" index="2" speed="15.00" length="50.00" width="3.50" shape="-100.00,1.75 -150.00,1.75"/>
     </edge>
     <edge id="L5" from="S1" to="S2" priority="-1">
-        <lane id="L5_0" index="0" speed="20.00" length="50.00" width="3.50" shape="8.75,-150.00 8.75,-100.00"/>
-        <lane id="L5_1" index="1" speed="20.00" length="50.00" width="3.50" shape="5.25,-150.00 5.25,-100.00"/>
-        <lane id="L5_2" index="2" speed="20.00" length="50.00" width="3.50" shape="1.75,-150.00 1.75,-100.00"/>
+        <lane id="L5_0" index="0" speed="15.00" length="50.00" width="3.50" shape="8.75,-150.00 8.75,-100.00"/>
+        <lane id="L5_1" index="1" speed="15.00" length="50.00" width="3.50" shape="5.25,-150.00 5.25,-100.00"/>
+        <lane id="L5_2" index="2" speed="15.00" length="50.00" width="3.50" shape="1.75,-150.00 1.75,-100.00"/>
     </edge>
     <edge id="L6" from="S2" to="IB" priority="-1" length="100.00">
-        <lane id="L6_0" index="0" speed="20.00" length="100.00" width="3.50" shape="8.75,-100.00 8.75,-10.50"/>
-        <lane id="L6_1" index="1" speed="20.00" length="100.00" width="3.50" shape="5.25,-100.00 5.25,-10.50"/>
-        <lane id="L6_2" index="2" speed="20.00" length="100.00" width="3.50" shape="1.75,-100.00 1.75,-10.50"/>
+        <lane id="L6_0" index="0" speed="15.00" length="100.00" width="3.50" shape="8.75,-100.00 8.75,-10.50"/>
+        <lane id="L6_1" index="1" speed="15.00" length="100.00" width="3.50" shape="5.25,-100.00 5.25,-10.50"/>
+        <lane id="L6_2" index="2" speed="15.00" length="100.00" width="3.50" shape="1.75,-100.00 1.75,-10.50"/>
     </edge>
     <edge id="L7" from="IB" to="S2" priority="-1" length="100.00">
-        <lane id="L7_0" index="0" speed="20.00" length="100.00" width="3.50" shape="-8.75,-10.50 -8.75,-100.00"/>
-        <lane id="L7_1" index="1" speed="20.00" length="100.00" width="3.50" shape="-5.25,-10.50 -5.25,-100.00"/>
-        <lane id="L7_2" index="2" speed="20.00" length="100.00" width="3.50" shape="-1.75,-10.50 -1.75,-100.00"/>
+        <lane id="L7_0" index="0" speed="15.00" length="100.00" width="3.50" shape="-8.75,-10.50 -8.75,-100.00"/>
+        <lane id="L7_1" index="1" speed="15.00" length="100.00" width="3.50" shape="-5.25,-10.50 -5.25,-100.00"/>
+        <lane id="L7_2" index="2" speed="15.00" length="100.00" width="3.50" shape="-1.75,-10.50 -1.75,-100.00"/>
     </edge>
     <edge id="L8" from="S2" to="S1" priority="-1">
-        <lane id="L8_0" index="0" speed="20.00" length="50.00" width="3.50" shape="-8.75,-100.00 -8.75,-150.00"/>
-        <lane id="L8_1" index="1" speed="20.00" length="50.00" width="3.50" shape="-5.25,-100.00 -5.25,-150.00"/>
-        <lane id="L8_2" index="2" speed="20.00" length="50.00" width="3.50" shape="-1.75,-100.00 -1.75,-150.00"/>
+        <lane id="L8_0" index="0" speed="15.00" length="50.00" width="3.50" shape="-8.75,-100.00 -8.75,-150.00"/>
+        <lane id="L8_1" index="1" speed="15.00" length="50.00" width="3.50" shape="-5.25,-100.00 -5.25,-150.00"/>
+        <lane id="L8_2" index="2" speed="15.00" length="50.00" width="3.50" shape="-1.75,-100.00 -1.75,-150.00"/>
     </edge>
     <edge id="L9" from="E1" to="E2" priority="-1">
-        <lane id="L9_0" index="0" speed="20.00" length="50.00" width="3.50" shape="150.00,8.75 100.00,8.75"/>
-        <lane id="L9_1" index="1" speed="20.00" length="50.00" width="3.50" shape="150.00,5.25 100.00,5.25"/>
-        <lane id="L9_2" index="2" speed="20.00" length="50.00" width="3.50" shape="150.00,1.75 100.00,1.75"/>
+        <lane id="L9_0" index="0" speed="15.00" length="50.00" width="3.50" shape="150.00,8.75 100.00,8.75"/>
+        <lane id="L9_1" index="1" speed="15.00" length="50.00" width="3.50" shape="150.00,5.25 100.00,5.25"/>
+        <lane id="L9_2" index="2" speed="15.00" length="50.00" width="3.50" shape="150.00,1.75 100.00,1.75"/>
     </edge>
 
     <junction id="E1" type="dead_end" x="150.00" y="0.00" incLanes="L12_0 L12_1 L12_2" intLanes="" shape="150.00,0.00 150.00,-10.50 150.00,0.00"/>
