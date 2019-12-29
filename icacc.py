@@ -59,10 +59,12 @@ def generate_routefile():
         print("""<routes>""", file = routes)
         # vehicle configuration of simulation
         print("""
-        <vType id="VehicleA" accel="3.5" decel="5.0" sigma="0" length="5" minGap="0.0" maxSpeed="15.0" speedFactor="1.0"
+        <vType id="VehicleA" accel="3.5" decel="5.0" sigma="0" length="5" minGap="1.0" maxSpeed="15.0" speedFactor="1.0"
+        guiShape="passenger" speedDev="0" />
+        <vType id="VehicleB" accel="3.5" decel="5.0" sigma="0" length="5" minGap="1.0" maxSpeed="15.0" speedFactor="1.0"
         guiShape="passenger" speedDev="0" />
         """, file=routes)
-
+        #speedFactor="1.0"   speedDev="0"
         # route configuration of simulation
         print("""
         <route id="route_WE" edges="L1 L2 L11 L12" />
@@ -157,22 +159,22 @@ def run():
     # traci.trafficlight.setPhase("0", 2)
     traci.vehicle.add("newVeh", "route_WN", typeID="VehicleA", departSpeed="15.0", departLane="2")
     traci.vehicle.setSpeedMode("newVeh", 0)
-    traci.vehicle.add("newVeh2", "route_WE", typeID="VehicleA", departSpeed="15.0", departLane="1")
-    traci.vehicle.setSpeedMode("newVeh2", 0)
-    traci.vehicle.add("newVeh3", "route_WS", typeID="VehicleA", departSpeed="15.0", departLane="0")
-    traci.vehicle.setSpeedMode("newVeh3", 0)
-    traci.vehicle.add("newVeh4", "route_WE", typeID="VehicleA", departSpeed="15.0", departLane="1", depart="1")
-    traci.vehicle.setSpeedMode("newVeh4", 0)
+    # traci.vehicle.add("newVeh2", "route_WE", typeID="VehicleA", departSpeed="10.0", departLane="1")
+    # traci.vehicle.setSpeedMode("newVeh2", 0)
+    # traci.vehicle.add("newVeh3", "route_WS", typeID="VehicleA", departSpeed="10.0", departLane="0")
+    # traci.vehicle.setSpeedMode("newVeh3", 0)
+    # traci.vehicle.add("newVeh4", "route_WE", typeID="VehicleB", departSpeed="15.0", departLane="1", depart="2")
+    # traci.vehicle.setSpeedMode("newVeh4", 0)
     while step < 1000:
         traci.simulationStep()
-        # traci.vehicle.setSpeed("newVeh", 20.0)
-        # # traci.vehicle.setSpeedMode("newVeh", 0)
-        # traci.vehicle.setSpeed("newVeh2", 20.0)
+        # traci.vehicle.setSpeed("newVeh", 10.0)
+        # traci.vehicle.setSpeedMode("newVeh", 0)
+        # traci.vehicle.setSpeed("newVeh2", 10.0)
         # # traci.vehicle.setSpeedMode("newVeh2", 0)
-        # traci.vehicle.setSpeed("newVeh3", 20.0)
+        # traci.vehicle.setSpeed("newVeh3", 10.0)
         # # traci.vehicle.setSpeedMode("newVeh3", 0)
-        # traci.vehicle.setSpeed("newVeh4", 30.0)
-        # # traci.vehicle.setSpeedMode("newVeh4", 0)
+        # traci.vehicle.setSpeed("newVeh4", 15.0)
+        # traci.vehicle.setSpeedMode("newVeh4", 0)
         # if step % 10 == 0:
         #     traci.vehicle.setSpeed("0", random.uniform(30, 50))
         step += 1
