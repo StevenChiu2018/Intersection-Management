@@ -67,6 +67,43 @@ class RoadController:
             if car.step():
                 self.on_road_car.remove(car)
 
+class ICACC:
+    def __init__(self, road_control):
+        self.new_car = []
+        self.road_control = road_control
+
+    def generate_car(self, step):
+        self.new_car.clear()
+        if random.uniform(0,1) < 0.6:
+            self.new_car.append(Car("route_WE", "WE_{}".format(step)))
+        if random.uniform(0,1) < 0.2:
+            self.new_car.append(Car("route_WN", "WN_{}".format(step)))
+        if random.uniform(0,1) < 0.2:
+            self.new_car.append(Car("route_WS", "WS_{}".format(step)))
+        if random.uniform(0,1) < 0.6:
+            self.new_car.append(Car("route_EW", "EW_{}".format(step)))
+        if random.uniform(0,1) < 0.2:
+            self.new_car.append(Car("route_EN", "EN_{}".format(step)))
+        if random.uniform(0,1) < 0.2:
+            self.new_car.append(Car("route_ES", "ES_{}".format(step)))
+        if random.uniform(0,1) < 0.2:
+            self.new_car.append(Car("route_NE", "NE_{}".format(step)))
+        if random.uniform(0,1) < 0.2:
+            self.new_car.append(Car("route_NW", "NW_{}".format(step)))
+        if random.uniform(0,1) < 0.6:
+            self.new_car.append(Car("route_NS", "NS_{}".format(step)))
+        if random.uniform(0,1) < 0.2:
+            self.new_car.append(Car("route_SE", "SE_{}".format(step)))
+        if random.uniform(0,1) < 0.6:
+            self.new_car.append(Car("route_SN", "SN_{}".format(step)))
+        if random.uniform(0,1) < 0.2:
+            self.new_car.append(Car("route_SW", "SW_{}".format(step)))
+    # TODO: do the optimize here
+    # step parameter is just for test, after the optimize is done the step can be take off
+    def optimize(self, step):
+        for car in self.new_car:
+            self.road_control.assigned_car(step, car)
+
 # we need to import python modules from the $SUMO_HOME/tools directory
 if 'SUMO_HOME' in os.environ:
     tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
@@ -90,8 +127,8 @@ def generate_routefile():
         print("""<routes>""", file = routes)
         # vehicle configuration of simulation
         print("""
-        <vType id="VehicleA" accel="3.5" decel="5.0" sigma="0" length="5" maxSpeed="{}" speedFactor="1.0" minGap="0.1"
-        guiShape="passenger" speedDev="0"/>
+        <vType id="VehicleA" accel="3.5" decel="5.0" sigma="0" length="5" maxSpeed="{}" speedFactor="1.0" minGap="0.0"
+        guiShape="passenger" speedDev="0" tau="0.1"/>
         """.format(CarMaxSpeed), file=routes)
         #speedFactor="1.0"   speedDev="0"
         # route configuration of simulation
@@ -116,19 +153,11 @@ def run():
     random.seed(42)
     step = 0
     road_control = RoadController()
-    road_control.assigned_car(0, Car("route_WE", "0"))
-    road_control.assigned_car(0, Car("route_WN", "1"))
-    road_control.assigned_car(0, Car("route_WS", "2"))
-    road_control.assigned_car(0, Car("route_EW", "3"))
-    road_control.assigned_car(0, Car("route_EN", "4"))
-    road_control.assigned_car(0, Car("route_ES", "5"))
-    road_control.assigned_car(0, Car("route_NE", "6"))
-    road_control.assigned_car(0, Car("route_NW", "7"))
-    road_control.assigned_car(0, Car("route_NS", "8"))
-    road_control.assigned_car(0, Car("route_SE", "9"))
-    road_control.assigned_car(0, Car("route_SN", "10"))
-    road_control.assigned_car(0, Car("route_SW", "11"))
+    intersection_management = ICACC(road_control)
     while step < 1000:
+        if step % 10 == 0:
+            intersection_management.generate_car(step)
+            intersection_management.optimize(step)
         road_control.dispatch_car_from_waiting(step)
         road_control.step()
         traci.simulationStep()
