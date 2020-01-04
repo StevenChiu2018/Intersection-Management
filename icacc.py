@@ -7,6 +7,7 @@ import os
 import sys
 import optparse
 import random
+import Scheduler
 
 # car setting
 CarMaxSpeed = "15.0"
@@ -71,38 +72,39 @@ class ICACC:
     def __init__(self, road_control):
         self.new_car = []
         self.road_control = road_control
+        self.sa = Scheduler.Scheduler()
 
     def generate_car(self, step):
         self.new_car.clear()
         if random.uniform(0,1) < 0.6:
-            self.new_car.append(Car("route_WE", "WE_{}".format(step)))
+            self.new_car.append(("route_WE", "WE_{}".format(step)))
         if random.uniform(0,1) < 0.2:
-            self.new_car.append(Car("route_WN", "WN_{}".format(step)))
+            self.new_car.append(("route_WN", "WN_{}".format(step)))
         if random.uniform(0,1) < 0.2:
-            self.new_car.append(Car("route_WS", "WS_{}".format(step)))
+            self.new_car.append(("route_WS", "WS_{}".format(step)))
         if random.uniform(0,1) < 0.6:
-            self.new_car.append(Car("route_EW", "EW_{}".format(step)))
+            self.new_car.append(("route_EW", "EW_{}".format(step)))
         if random.uniform(0,1) < 0.2:
-            self.new_car.append(Car("route_EN", "EN_{}".format(step)))
+            self.new_car.append(("route_EN", "EN_{}".format(step)))
         if random.uniform(0,1) < 0.2:
-            self.new_car.append(Car("route_ES", "ES_{}".format(step)))
+            self.new_car.append(("route_ES", "ES_{}".format(step)))
         if random.uniform(0,1) < 0.2:
-            self.new_car.append(Car("route_NE", "NE_{}".format(step)))
+            self.new_car.append(("route_NE", "NE_{}".format(step)))
         if random.uniform(0,1) < 0.2:
-            self.new_car.append(Car("route_NW", "NW_{}".format(step)))
+            self.new_car.append(("route_NW", "NW_{}".format(step)))
         if random.uniform(0,1) < 0.6:
-            self.new_car.append(Car("route_NS", "NS_{}".format(step)))
+            self.new_car.append(("route_NS", "NS_{}".format(step)))
         if random.uniform(0,1) < 0.2:
-            self.new_car.append(Car("route_SE", "SE_{}".format(step)))
+            self.new_car.append(("route_SE", "SE_{}".format(step)))
         if random.uniform(0,1) < 0.6:
-            self.new_car.append(Car("route_SN", "SN_{}".format(step)))
+            self.new_car.append(("route_SN", "SN_{}".format(step)))
         if random.uniform(0,1) < 0.2:
-            self.new_car.append(Car("route_SW", "SW_{}".format(step)))
-    # TODO: do the optimize here
-    # step parameter is just for test, after the optimize is done the step can be take off
+            self.new_car.append(("route_SW", "SW_{}".format(step)))
+
     def optimize(self, step):
-        for car in self.new_car:
-            self.road_control.assigned_car(step, car)
+        schedule_car = self.sa.Simulated_Annealing(self.new_car, step)
+        for (route, veh_name, schedule_step) in schedule_car:
+            self.road_control.assigned_car(schedule_step, Car(route, veh_name))
 
 # we need to import python modules from the $SUMO_HOME/tools directory
 if 'SUMO_HOME' in os.environ:
