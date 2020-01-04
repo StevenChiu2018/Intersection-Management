@@ -117,7 +117,7 @@ from sumolib import checkBinary  # noqa
 import traci  # noqa
 
 # simulation setting
-SimulationStepLength = 0.05
+SimulationStepLength = 0.1
 SimulationPeriod = 1800
 SimulationEnding = 2000
 SimulationDuration = SimulationEnding/SimulationStepLength
@@ -156,7 +156,7 @@ def run():
     step = 0
     road_control = RoadController()
     intersection_management = ICACC(road_control)
-    while step < 1000:
+    while step < SimulationEnding:
         if step % 10 == 0:
             intersection_management.generate_car(step)
             intersection_management.optimize(step)
