@@ -67,6 +67,43 @@ class RoadController:
             if car.step():
                 self.on_road_car.remove(car)
 
+class IntersectionManagement:
+    def __init__(self, road_control):
+        self.new_car = []
+        self.road_control = road_control
+
+    def generate_car(self, step):
+        self.new_car.clear()
+        if random.uniform(0,1) < 0.6:
+            self.new_car.append(Car("route_WE", "WE_{}".format(step)))
+        if random.uniform(0,1) < 0.2:
+            self.new_car.append(Car("route_WN", "WN_{}".format(step)))
+        if random.uniform(0,1) < 0.2:
+            self.new_car.append(Car("route_WS", "WS_{}".format(step)))
+        if random.uniform(0,1) < 0.6:
+            self.new_car.append(Car("route_EW", "EW_{}".format(step)))
+        if random.uniform(0,1) < 0.2:
+            self.new_car.append(Car("route_EN", "EN_{}".format(step)))
+        if random.uniform(0,1) < 0.2:
+            self.new_car.append(Car("route_ES", "ES_{}".format(step)))
+        if random.uniform(0,1) < 0.2:
+            self.new_car.append(Car("route_NE", "NE_{}".format(step)))
+        if random.uniform(0,1) < 0.2:
+            self.new_car.append(Car("route_NW", "NW_{}".format(step)))
+        if random.uniform(0,1) < 0.6:
+            self.new_car.append(Car("route_NS", "NS_{}".format(step)))
+        if random.uniform(0,1) < 0.2:
+            self.new_car.append(Car("route_SE", "SE_{}".format(step)))
+        if random.uniform(0,1) < 0.6:
+            self.new_car.append(Car("route_SN", "SN_{}".format(step)))
+        if random.uniform(0,1) < 0.2:
+            self.new_car.append(Car("route_SW", "SW_{}".format(step)))
+    # TODO: do the optimize here
+    # step parameter is just for test, after the optimize is done the step can be take off
+    def optimize(self, step):
+        for car in self.new_car:
+            self.road_control.assigned_car(step, car)
+
 # we need to import python modules from the $SUMO_HOME/tools directory
 if 'SUMO_HOME' in os.environ:
     tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
@@ -111,40 +148,16 @@ def generate_routefile():
         """, file=routes)
         print("</routes>", file=routes)
 
-def generate_car(road_control, step):
-    if random.uniform(0,1) < 0.6:
-        road_control.assigned_car(step, Car("route_WE", "WE_{}".format(step)))
-    if random.uniform(0,1) < 0.2:
-        road_control.assigned_car(step, Car("route_WN", "WN_{}".format(step)))
-    if random.uniform(0,1) < 0.2:
-        road_control.assigned_car(step, Car("route_WS", "WS_{}".format(step)))
-    if random.uniform(0,1) < 0.6:
-        road_control.assigned_car(step, Car("route_EW", "EW_{}".format(step)))
-    if random.uniform(0,1) < 0.2:
-        road_control.assigned_car(step, Car("route_EN", "EN_{}".format(step)))
-    if random.uniform(0,1) < 0.2:
-        road_control.assigned_car(step, Car("route_ES", "ES_{}".format(step)))
-    if random.uniform(0,1) < 0.2:
-        road_control.assigned_car(step, Car("route_NE", "NE_{}".format(step)))
-    if random.uniform(0,1) < 0.2:
-        road_control.assigned_car(step, Car("route_NW", "NW_{}".format(step)))
-    if random.uniform(0,1) < 0.6:
-        road_control.assigned_car(step, Car("route_NS", "NS_{}".format(step)))
-    if random.uniform(0,1) < 0.2:
-        road_control.assigned_car(step, Car("route_SE", "SE_{}".format(step)))
-    if random.uniform(0,1) < 0.6:
-        road_control.assigned_car(step, Car("route_SN", "SN_{}".format(step)))
-    if random.uniform(0,1) < 0.2:
-        road_control.assigned_car(step, Car("route_SW", "SW_{}".format(step)))
-
 def run():
     """execute the TraCI control loop"""
     random.seed(42)
     step = 0
     road_control = RoadController()
+    intersection_manage = IntersectionManagement(road_control)
     while step < 1000:
         if step % 10 == 0:
-            generate_car(road_control, step)
+            intersection_manage.generate_car(step)
+            intersection_manage.optimize(step)
         road_control.dispatch_car_from_waiting(step)
         road_control.step()
         traci.simulationStep()
