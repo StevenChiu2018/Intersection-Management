@@ -167,7 +167,7 @@ def run():
     step = 0
     road_control = RoadController()
     intersection_management = ICACC(road_control)
-    while step < SimulationEnding:
+    while step < SimulationDuration:
         if step % 10 == 0:
             intersection_management.generate_car(step)
             intersection_management.optimize(step)

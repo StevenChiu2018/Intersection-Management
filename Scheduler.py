@@ -177,13 +177,15 @@ class Scheduler:
                 TempDelay = random.randint(0, MaxDelay) #% MaxDelay
                 #print(TempDelay)
                 T_stop_line = CurrentTimeStep  + self.__OPTP + TempDelay
-                if(T_stop_line < self.__Hmin + self.__Last_Vehicle_Arrival_Time[v[0]]):
+                
+                while(T_stop_line < self.__Hmin + self.__Last_Vehicle_Arrival_Time[v[0]]):
                     # print("violate __Hmin")
-                    continue
+                    TempDelay += random.randint(0, MaxDelay)
+                    T_stop_line = CurrentTimeStep  + self.__OPTP + TempDelay
 
                 SubValid = True     # some routes have no conflict point
                 if(len(self.__Lane_Conflict[v[0]]) == 0):   # scheduling for the lane which has no conflict point
-                    T_stop_line = self.__Hmin + self.__Last_Vehicle_Arrival_Time[v[0]]
+                    TempDelay = 0
                 # print(self.__Lane_Conflict[v[0]])
                 for Cpoint in self.__Lane_Conflict[v[0]]:
                     # print(Cpoint)
@@ -212,6 +214,7 @@ class Scheduler:
                 self.__Conflict_Point_temp[Cpoint[0]][lower_bound] = True
             TempSol.append((v[0], v[1], TempDelay))
             SumTempDelay += TempDelay
+
         return (SumTempDelay, TempSol)
 
     def Simulated_Annealing(self, IncomingVehicle, CurrentTimeStep):     # list of tupe (lane, vehicle id)       
@@ -268,18 +271,18 @@ if __name__ == "__main__":
 
     N = 20000
     # demand per second from different directions (probabilities)
-    pWE = 1. / 50   # vehicles from west lane
-    pWN = 1. / 50
-    pWS = 1. / 50
-    pEW = 1. / 50   # vehicles from east lane
-    pEN = 1. / 50
-    pES = 1. / 50
-    pNE = 1. / 50   # vehicles from north lane
-    pNW = 1. / 50
-    pNS = 1. / 50
-    pSE = 1. / 50   # vehicles from south lane
-    pSN = 1. / 50
-    pSW = 1. / 50
+    pWE = 3. / 5   # vehicles from west lane
+    pWN = 1. / 5
+    pWS = 1. / 5
+    pEW = 3. / 5   # vehicles from east lane
+    pEN = 1. / 5
+    pES = 1. / 5
+    pNE = 1. / 5   # vehicles from north lane
+    pNW = 5. / 5
+    pNS = 3. / 5
+    pSE = 1. / 5   # vehicles from south lane
+    pSN = 3. / 5
+    pSW = 1. / 5
 
     vehNr = 0
     for i in range(N):
@@ -320,15 +323,15 @@ if __name__ == "__main__":
             vehNr += 1
 
         # vehicles dirving from north
-        # if random.uniform(0, 1) < pNE:
-        #     vehicles.append(("route_NE", vehNr))
-        #     vehNr += 1
-        # if random.uniform(0, 1) < pNS:
-        #     vehicles.append(("route_NS", vehNr))
-        #     vehNr += 1
-        # if random.uniform(0, 1) < pNW:
-        #     vehicles.append(("route_NW", vehNr))
-        #     vehNr += 1
+        if random.uniform(0, 1) < pNE:
+            vehicles.append(("route_NE", vehNr))
+            vehNr += 1
+        if random.uniform(0, 1) < pNS:
+            vehicles.append(("route_NS", vehNr))
+            vehNr += 1
+        if random.uniform(0, 1) < pNW:
+            vehicles.append(("route_NW", vehNr))
+            vehNr += 1
         print("--------------------------")
         print(vehicles)
         best = optimizer.Simulated_Annealing(vehicles, i)
