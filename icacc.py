@@ -67,12 +67,15 @@ class RoadController:
         for car in self.on_road_car:
             if car.step():
                 self.on_road_car.remove(car)
+    
+    def get_car_amount(self):
+        return len(self.on_road_car)
 
 class ICACC:
 
-    turn_left = 0.2
-    turn_right = 0.2
-    through = 0.6
+    turn_left = 0.11
+    turn_right = 0.11
+    through = 0.34
 
     def __init__(self, road_control):
         self.new_car = []
@@ -81,41 +84,52 @@ class ICACC:
 
     def generate_car(self, step):
         self.new_car.clear()
+        count = 0
         if random.uniform(0,1) < self.through:
             self.new_car.append(("route_WE", "WE_{}".format(step)))
+            count = count + 1
         if random.uniform(0,1) < self.turn_left:
             self.new_car.append(("route_WN", "WN_{}".format(step)))
+            count = count + 1
         if random.uniform(0,1) < self.turn_right:
             self.new_car.append(("route_WS", "WS_{}".format(step)))
+            count = count + 1
         if random.uniform(0,1) < self.through:
             self.new_car.append(("route_EW", "EW_{}".format(step)))
+            count = count + 1
         if random.uniform(0,1) < self.turn_right:
             self.new_car.append(("route_EN", "EN_{}".format(step)))
+            count = count + 1
         if random.uniform(0,1) < self.turn_left:
             self.new_car.append(("route_ES", "ES_{}".format(step)))
+            count = count + 1
         if random.uniform(0,1) < self.turn_left:
             self.new_car.append(("route_NE", "NE_{}".format(step)))
+            count = count + 1
         if random.uniform(0,1) < self.turn_right:
             self.new_car.append(("route_NW", "NW_{}".format(step)))
+            count = count + 1
         if random.uniform(0,1) < self.through:
             self.new_car.append(("route_NS", "NS_{}".format(step)))
+            count = count + 1
         if random.uniform(0,1) < self.turn_right:
             self.new_car.append(("route_SE", "SE_{}".format(step)))
+            count = count + 1
         if random.uniform(0,1) < self.through:
             self.new_car.append(("route_SN", "SN_{}".format(step)))
+            count = count + 1
         if random.uniform(0,1) < self.turn_left:
             self.new_car.append(("route_SW", "SW_{}".format(step)))
+            count = count + 1
+        return count
 
     def optimize(self, step):
         schedule_car = self.sa.Simulated_Annealing(self.new_car, step)
         for (route, veh_name, schedule_step) in schedule_car:
             self.road_control.assigned_car(schedule_step, Car(route, veh_name))
 
-
-    def optimize(self, step):
-        schedule_car = self.sa.Simulated_Annealing(self.new_car, step)
-        for (route, veh_name, schedule_step) in schedule_car:
-            self.road_control.assigned_car(schedule_step, Car(route, veh_name))
+    def get_total_delay_time(self):
+        return self.sa.QueryTotalDelay()
 
 # we need to import python modules from the $SUMO_HOME/tools directory
 if 'SUMO_HOME' in os.environ:
@@ -130,7 +144,7 @@ import traci  # noqa
 # simulation setting
 SimulationStepLength = 0.1
 SimulationPeriod = 1800
-SimulationEnding = 2000
+SimulationEnding = 3600
 SimulationDuration = SimulationEnding/SimulationStepLength
 print("Duration of Simulation(steps): " + str(SimulationDuration))
 
@@ -167,16 +181,20 @@ def run():
     step = 0
     road_control = RoadController()
     intersection_management = ICACC(road_control)
-    while step < SimulationDuration:
-        if step % 10 == 0:
-            intersection_management.generate_car(step)
+    car_amount = 0
+    while True:
+        if car_amount < 2000 and step < SimulationDuration and step % 10 == 0:
+            car_amount = car_amount + intersection_management.generate_car(step)
             intersection_management.optimize(step)
         road_control.dispatch_car_from_waiting(step)
         road_control.step()
         traci.simulationStep()
         step += 1
+        if road_control.get_car_amount() == 0 and step >= SimulationDuration:
+            break
     traci.close()
     sys.stdout.flush()
+    print(intersection_management.get_total_delay_time())
 
 
 def get_options():
