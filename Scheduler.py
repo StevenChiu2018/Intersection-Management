@@ -260,75 +260,76 @@ class Scheduler:
     def QueryTotalDelay(self):
         return (self.__TotalDelay/self.__VehicleNumber)
 
-optimizer = Scheduler()
+if __name__ == "__main__":
+    optimizer = Scheduler()
 
 
-N = 10000
-# demand per second from different directions (probabilities)
-pWE = 1. / 10   # vehicles from west lane
-pWN = 1. / 12
-pWS = 1. / 30
-pEW = 1. / 12   # vehicles from east lane
-pEN = 1. / 16
-pES = 1. / 25
-pNE = 1. / 14   # vehicles from north lane
-pNW = 1. / 16
-pNS = 1. / 18
-pSE = 1. / 12   # vehicles from south lane
-pSN = 1. / 16
-pSW = 1. / 20
+    N = 100
+    # demand per second from different directions (probabilities)
+    pWE = 1. / 10   # vehicles from west lane
+    pWN = 1. / 12
+    pWS = 1. / 30
+    pEW = 1. / 12   # vehicles from east lane
+    pEN = 1. / 16
+    pES = 1. / 25
+    pNE = 1. / 14   # vehicles from north lane
+    pNW = 1. / 16
+    pNS = 1. / 18
+    pSE = 1. / 12   # vehicles from south lane
+    pSN = 1. / 16
+    pSW = 1. / 20
 
-vehNr = 0
-for i in range(N):
-    if(i%10):
-        continue
-    # vehicles dirving from west
-    vehicles = []
-    if random.uniform(0, 1) < pWE:
-        vehicles.append(("route_WE", vehNr))
-        vehNr += 1
-    if random.uniform(0, 1) < pWN:
-        vehicles.append(("route_WN", vehNr))
-        vehNr += 1
-    if random.uniform(0, 1) < pWS:
-        vehicles.append(("route_WS", vehNr))
-        vehNr += 1
+    vehNr = 0
+    for i in range(N):
+        if(i%10):
+            continue
+        # vehicles dirving from west
+        vehicles = []
+        if random.uniform(0, 1) < pWE:
+            vehicles.append(("route_WE", vehNr))
+            vehNr += 1
+        if random.uniform(0, 1) < pWN:
+            vehicles.append(("route_WN", vehNr))
+            vehNr += 1
+        if random.uniform(0, 1) < pWS:
+            vehicles.append(("route_WS", vehNr))
+            vehNr += 1
 
-    # vehicles dirving from east
-    if random.uniform(0, 1) < pEW:
-        vehicles.append(("route_EW", vehNr))
-        vehNr += 1
-    if random.uniform(0, 1) < pEN:
-        vehicles.append(("route_EN", vehNr))
-        vehNr += 1
-    if random.uniform(0, 1) < pES:
-        vehicles.append(("route_ES", vehNr))
-        vehNr += 1
+        # vehicles dirving from east
+        if random.uniform(0, 1) < pEW:
+            vehicles.append(("route_EW", vehNr))
+            vehNr += 1
+        if random.uniform(0, 1) < pEN:
+            vehicles.append(("route_EN", vehNr))
+            vehNr += 1
+        if random.uniform(0, 1) < pES:
+            vehicles.append(("route_ES", vehNr))
+            vehNr += 1
 
-    # vehicles dirving from south
-    if random.uniform(0, 1) < pSE:
-        vehicles.append(("route_SE", vehNr))
-        vehNr += 1
-    if random.uniform(0, 1) < pSN:
-        vehicles.append(("route_SN", vehNr))
-        vehNr += 1
-    if random.uniform(0, 1) < pSW:
-        vehicles.append(("route_SW", vehNr))
-        vehNr += 1
+        # vehicles dirving from south
+        if random.uniform(0, 1) < pSE:
+            vehicles.append(("route_SE", vehNr))
+            vehNr += 1
+        if random.uniform(0, 1) < pSN:
+            vehicles.append(("route_SN", vehNr))
+            vehNr += 1
+        if random.uniform(0, 1) < pSW:
+            vehicles.append(("route_SW", vehNr))
+            vehNr += 1
 
-    # vehicles dirving from north
-    if random.uniform(0, 1) < pNE:
-        vehicles.append(("route_NE", vehNr))
-        vehNr += 1
-    if random.uniform(0, 1) < pNS:
-        vehicles.append(("route_NS", vehNr))
-        vehNr += 1
-    if random.uniform(0, 1) < pNW:
-        vehicles.append(("route_NW", vehNr))
-        vehNr += 1
-    print("--------------------------")
-    print(vehicles)
-    best = optimizer.Simulated_Annealing(vehicles, i)
-    print(best)
+        # vehicles dirving from north
+        if random.uniform(0, 1) < pNE:
+            vehicles.append(("route_NE", vehNr))
+            vehNr += 1
+        if random.uniform(0, 1) < pNS:
+            vehicles.append(("route_NS", vehNr))
+            vehNr += 1
+        if random.uniform(0, 1) < pNW:
+            vehicles.append(("route_NW", vehNr))
+            vehNr += 1
+        print("--------------------------")
+        print(vehicles)
+        best = optimizer.Simulated_Annealing(vehicles, i)
+        print(best)
 
-print(optimizer.QueryTotalDelay())
+    print(optimizer.QueryTotalDelay())
