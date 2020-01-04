@@ -9,28 +9,7 @@ LaneDistance = 150
 FixedSpeed = 15.0
 SimulationPeriod = 1800
 SimulationEnding = 2000
-SimulationDuration = SimulationEnding/SimulationStepLength
-
-
-def Xorshift96():
-    x=123456789
-    y=362436069
-    z=521288629
-    def _random():
-        nonlocal x, y, z
-        x ^= (x << 16)
-        x ^= (x >> 5)
-        x ^= (x << 1)
-
-        t = x
-        x = y
-        y = z
-
-        z = t ^ x ^ y
-        return z
-
-    return _random
-
+SimulationDuration = SimulationEnding/SimulationStepLength 
 
 
 class Scheduler:
@@ -69,13 +48,10 @@ class Scheduler:
     __Lane_Conflict["route_SE"] = []    # none 
     __Lane_Conflict["route_SN"] = []
 
-    # random generator
-    generator = Xorshift96()
-
     # some constant
     __OPTP = LaneDistance/FixedSpeed
 
-    __MiniLaneDistance = 3.0
+    __MiniLaneDistance = 1.0
     __Hmin = math.ceil((__MiniLaneDistance/FixedSpeed)*StepPerSecond)       # same lane safe distance
 
     __MiniIntersectionDistance = 6.0
@@ -96,6 +72,23 @@ class Scheduler:
     # state of optimizer
     __TotalDelay = 0.0
     __VehicleNumber = 0
+
+    # random nomber generator
+    x=123456789
+    y=362436069
+    z=521288629
+    t=0
+    def __random(self):
+        self.x ^= (self.x << 16)
+        self.x ^= (self.x >> 5)
+        self.x ^= (self.x << 1)
+
+        self.t = self.x
+        self.x = self.y
+        self.y = self.z
+
+        self.z = self.t ^ self.x ^ self.y
+        return self.z
 
     def __init__(self):
         # init of dictionary of each conflict point
@@ -174,13 +167,13 @@ class Scheduler:
             # print("schedule for "+ str(v))
             successful = False
             while not successful:
-                TempDelay = random.randint(0, MaxDelay) #% MaxDelay
+                TempDelay =  random.randint(0, MaxDelay)#self.__random() % MaxDelay
                 #print(TempDelay)
                 T_stop_line = CurrentTimeStep  + self.__OPTP + TempDelay
                 
                 while(T_stop_line < self.__Hmin + self.__Last_Vehicle_Arrival_Time[v[0]]):
                     # print("violate __Hmin")
-                    TempDelay += random.randint(0, MaxDelay)
+                    TempDelay += random.randint(0, MaxDelay)#self.__random() % MaxDelay
                     T_stop_line = CurrentTimeStep  + self.__OPTP + TempDelay
 
                 SubValid = True     # some routes have no conflict point
@@ -220,7 +213,7 @@ class Scheduler:
     def Simulated_Annealing(self, IncomingVehicle, CurrentTimeStep):     # list of tupe (lane, vehicle id)       
         BestSol = []    # list of answer
         BestDelay = math.inf    # setting infinity
-        Iteration = 5000
+        Iteration = 3000
 
         if(len(IncomingVehicle)==0):
             return BestSol
@@ -269,22 +262,23 @@ if __name__ == "__main__":
     optimizer = Scheduler()
 
 
-    N = 20000
+    N = 36000
     # demand per second from different directions (probabilities)
-    pWE = 3. / 5   # vehicles from west lane
-    pWN = 1. / 5
-    pWS = 1. / 5
-    pEW = 3. / 5   # vehicles from east lane
-    pEN = 1. / 5
-    pES = 1. / 5
-    pNE = 1. / 5   # vehicles from north lane
-    pNW = 5. / 5
-    pNS = 3. / 5
-    pSE = 1. / 5   # vehicles from south lane
-    pSN = 3. / 5
-    pSW = 1. / 5
+    pWE = 3. / (5*7)   # vehicles from west lane
+    pWN = 1. / (5*7)
+    pWS = 1. / (5*7)
+    pEW = 3. / (5*7)   # vehicles from east lane
+    pEN = 1. / (5*7)
+    pES = 1. / (5*7)
+    pNE = 1. / (5*7)   # vehicles from north lane
+    pNW = 1. / (5*7)
+    pNS = 3. / (5*7)
+    pSE = 1. / (5*7)   # vehicles from south lane
+    pSN = 3. / (5*7)
+    pSW = 1. / (5*7)
 
     vehNr = 0
+
     for i in range(N):
         if(i%10):
             continue
@@ -343,3 +337,5 @@ if __name__ == "__main__":
 
 
     print(optimizer.QueryTotalDelay())
+
+
