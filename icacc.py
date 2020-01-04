@@ -69,6 +69,11 @@ class RoadController:
                 self.on_road_car.remove(car)
 
 class ICACC:
+
+    turn_left = 0.2
+    turn_right = 0.2
+    through = 0.6
+
     def __init__(self, road_control):
         self.new_car = []
         self.road_control = road_control
@@ -76,30 +81,36 @@ class ICACC:
 
     def generate_car(self, step):
         self.new_car.clear()
-        if random.uniform(0,1) < 0.6:
+        if random.uniform(0,1) < self.through:
             self.new_car.append(("route_WE", "WE_{}".format(step)))
-        if random.uniform(0,1) < 0.2:
+        if random.uniform(0,1) < self.turn_left:
             self.new_car.append(("route_WN", "WN_{}".format(step)))
-        if random.uniform(0,1) < 0.2:
+        if random.uniform(0,1) < self.turn_right:
             self.new_car.append(("route_WS", "WS_{}".format(step)))
-        if random.uniform(0,1) < 0.6:
+        if random.uniform(0,1) < self.through:
             self.new_car.append(("route_EW", "EW_{}".format(step)))
-        if random.uniform(0,1) < 0.2:
+        if random.uniform(0,1) < self.turn_right:
             self.new_car.append(("route_EN", "EN_{}".format(step)))
-        if random.uniform(0,1) < 0.2:
+        if random.uniform(0,1) < self.turn_left:
             self.new_car.append(("route_ES", "ES_{}".format(step)))
-        if random.uniform(0,1) < 0.2:
+        if random.uniform(0,1) < self.turn_left:
             self.new_car.append(("route_NE", "NE_{}".format(step)))
-        if random.uniform(0,1) < 0.2:
+        if random.uniform(0,1) < self.turn_right:
             self.new_car.append(("route_NW", "NW_{}".format(step)))
-        if random.uniform(0,1) < 0.6:
+        if random.uniform(0,1) < self.through:
             self.new_car.append(("route_NS", "NS_{}".format(step)))
-        if random.uniform(0,1) < 0.2:
+        if random.uniform(0,1) < self.turn_right:
             self.new_car.append(("route_SE", "SE_{}".format(step)))
-        if random.uniform(0,1) < 0.6:
+        if random.uniform(0,1) < self.through:
             self.new_car.append(("route_SN", "SN_{}".format(step)))
-        if random.uniform(0,1) < 0.2:
+        if random.uniform(0,1) < self.turn_left:
             self.new_car.append(("route_SW", "SW_{}".format(step)))
+
+    def optimize(self, step):
+        schedule_car = self.sa.Simulated_Annealing(self.new_car, step)
+        for (route, veh_name, schedule_step) in schedule_car:
+            self.road_control.assigned_car(schedule_step, Car(route, veh_name))
+
 
     def optimize(self, step):
         schedule_car = self.sa.Simulated_Annealing(self.new_car, step)
