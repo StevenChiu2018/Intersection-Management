@@ -90,8 +90,8 @@ def generate_routefile():
         print("""<routes>""", file = routes)
         # vehicle configuration of simulation
         print("""
-        <vType id="VehicleA" accel="3.5" decel="5.0" sigma="0" length="5" maxSpeed="{}" speedFactor="1.0" minGap="0.1"
-        guiShape="passenger" speedDev="0"/>
+        <vType id="VehicleA" accel="3.5" decel="5.0" sigma="0" length="5" maxSpeed="{}" speedFactor="1.0" minGap="0.0"
+        guiShape="passenger" speedDev="0" tau="0.1"/>
         """.format(CarMaxSpeed), file=routes)
         #speedFactor="1.0"   speedDev="0"
         # route configuration of simulation
@@ -111,24 +111,40 @@ def generate_routefile():
         """, file=routes)
         print("</routes>", file=routes)
 
+def generate_car(road_control, step):
+    if random.uniform(0,1) < 0.6:
+        road_control.assigned_car(step, Car("route_WE", "WE_{}".format(step)))
+    if random.uniform(0,1) < 0.2:
+        road_control.assigned_car(step, Car("route_WN", "WN_{}".format(step)))
+    if random.uniform(0,1) < 0.2:
+        road_control.assigned_car(step, Car("route_WS", "WS_{}".format(step)))
+    if random.uniform(0,1) < 0.6:
+        road_control.assigned_car(step, Car("route_EW", "EW_{}".format(step)))
+    if random.uniform(0,1) < 0.2:
+        road_control.assigned_car(step, Car("route_EN", "EN_{}".format(step)))
+    if random.uniform(0,1) < 0.2:
+        road_control.assigned_car(step, Car("route_ES", "ES_{}".format(step)))
+    if random.uniform(0,1) < 0.2:
+        road_control.assigned_car(step, Car("route_NE", "NE_{}".format(step)))
+    if random.uniform(0,1) < 0.2:
+        road_control.assigned_car(step, Car("route_NW", "NW_{}".format(step)))
+    if random.uniform(0,1) < 0.6:
+        road_control.assigned_car(step, Car("route_NS", "NS_{}".format(step)))
+    if random.uniform(0,1) < 0.2:
+        road_control.assigned_car(step, Car("route_SE", "SE_{}".format(step)))
+    if random.uniform(0,1) < 0.6:
+        road_control.assigned_car(step, Car("route_SN", "SN_{}".format(step)))
+    if random.uniform(0,1) < 0.2:
+        road_control.assigned_car(step, Car("route_SW", "SW_{}".format(step)))
+
 def run():
     """execute the TraCI control loop"""
     random.seed(42)
     step = 0
     road_control = RoadController()
-    road_control.assigned_car(0, Car("route_WE", "0"))
-    road_control.assigned_car(0, Car("route_WN", "1"))
-    road_control.assigned_car(0, Car("route_WS", "2"))
-    road_control.assigned_car(0, Car("route_EW", "3"))
-    road_control.assigned_car(0, Car("route_EN", "4"))
-    road_control.assigned_car(0, Car("route_ES", "5"))
-    road_control.assigned_car(0, Car("route_NE", "6"))
-    road_control.assigned_car(0, Car("route_NW", "7"))
-    road_control.assigned_car(0, Car("route_NS", "8"))
-    road_control.assigned_car(0, Car("route_SE", "9"))
-    road_control.assigned_car(0, Car("route_SN", "10"))
-    road_control.assigned_car(0, Car("route_SW", "11"))
     while step < 1000:
+        if step % 10 == 0:
+            generate_car(road_control, step)
         road_control.dispatch_car_from_waiting(step)
         road_control.step()
         traci.simulationStep()
