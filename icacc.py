@@ -67,7 +67,7 @@ class RoadController:
             if car.step():
                 self.on_road_car.remove(car)
 
-class IntersectionManagement:
+class ICACC:
     def __init__(self, road_control):
         self.new_car = []
         self.road_control = road_control
@@ -153,11 +153,11 @@ def run():
     random.seed(42)
     step = 0
     road_control = RoadController()
-    intersection_manage = IntersectionManagement(road_control)
+    intersection_management = ICACC(road_control)
     while step < 1000:
         if step % 10 == 0:
-            intersection_manage.generate_car(step)
-            intersection_manage.optimize(step)
+            intersection_management.generate_car(step)
+            intersection_management.optimize(step)
         road_control.dispatch_car_from_waiting(step)
         road_control.step()
         traci.simulationStep()
