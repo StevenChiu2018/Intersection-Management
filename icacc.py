@@ -90,8 +90,8 @@ def generate_routefile():
         print("""<routes>""", file = routes)
         # vehicle configuration of simulation
         print("""
-        <vType id="VehicleA" accel="3.5" decel="5.0" sigma="0" length="5" minGap="1.0" maxSpeed="{}" speedFactor="1.0"
-        guiShape="passenger" speedDev="0" />
+        <vType id="VehicleA" accel="3.5" decel="5.0" sigma="0" length="5" maxSpeed="{}" speedFactor="1.0" minGap="0.1"
+        guiShape="passenger" speedDev="0"/>
         """.format(CarMaxSpeed), file=routes)
         #speedFactor="1.0"   speedDev="0"
         # route configuration of simulation
@@ -116,9 +116,18 @@ def run():
     random.seed(42)
     step = 0
     road_control = RoadController()
-    road_control.assigned_car(30, Car("route_WS", "0"))
-    road_control.assigned_car(40, Car("route_WN", "1"))
-    road_control.assigned_car(50, Car("route_WE", "2"))
+    road_control.assigned_car(0, Car("route_WE", "0"))
+    road_control.assigned_car(0, Car("route_WN", "1"))
+    road_control.assigned_car(0, Car("route_WS", "2"))
+    road_control.assigned_car(0, Car("route_EW", "3"))
+    road_control.assigned_car(0, Car("route_EN", "4"))
+    road_control.assigned_car(0, Car("route_ES", "5"))
+    road_control.assigned_car(0, Car("route_NE", "6"))
+    road_control.assigned_car(0, Car("route_NW", "7"))
+    road_control.assigned_car(0, Car("route_NS", "8"))
+    road_control.assigned_car(0, Car("route_SE", "9"))
+    road_control.assigned_car(0, Car("route_SN", "10"))
+    road_control.assigned_car(0, Car("route_SW", "11"))
     while step < 1000:
         road_control.dispatch_car_from_waiting(step)
         road_control.step()
@@ -131,7 +140,7 @@ def run():
 def get_options():
     optParser = optparse.OptionParser()
     optParser.add_option("--nogui", action="store_true",
-                         default=False, help="run the commandline version of sumo")
+                        default=False, help="run the commandline version of sumo")
     options, args = optParser.parse_args()
     return options
 
@@ -153,7 +162,7 @@ if __name__ == "__main__":
     # this is the normal way of using traci. sumo is started as a
     # subprocess and then the python script connects and runs
     traci.start([sumoBinary, "-c", "data/cross.sumocfg",
-                             "--tripinfo-output", "tripinfo.xml"])
+                            "--tripinfo-output", "tripinfo.xml"])
     run()
 
 # N = SimulationPeriod  # number of time steps
