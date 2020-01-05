@@ -5,10 +5,12 @@ import random
 # simulation setting
 SimulationStepLength = 0.1
 StepPerSecond = math.ceil(1/SimulationStepLength)
+MinimumGap = 1.0
+VehicleLength = 5.0
 LaneDistance = 150
 FixedSpeed = 15.0
-SimulationPeriod = 1800
-SimulationEnding = 2000
+SimulationPeriod = 3600
+SimulationEnding = 4000
 SimulationDuration = SimulationEnding/SimulationStepLength 
 
 
@@ -51,10 +53,10 @@ class Scheduler:
     # some constant
     __OPTP = LaneDistance/FixedSpeed
 
-    __MiniLaneDistance = 1.0
+    __MiniLaneDistance = MinimumGap
     __Hmin = math.ceil((__MiniLaneDistance/FixedSpeed)*StepPerSecond)       # same lane safe distance
 
-    __MiniIntersectionDistance = 6.0
+    __MiniIntersectionDistance = VehicleLength + __MiniLaneDistance
     __Delta = math.ceil((__MiniIntersectionDistance/FixedSpeed)*StepPerSecond)      #intersection safe distance
 
     __StraightLength = 21.0
