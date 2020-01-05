@@ -7,6 +7,8 @@ import os
 import sys
 import optparse
 import random
+import Scheduler
+import pandas as pd
 
 # car setting
 CarMaxSpeed = "15.0"
@@ -66,43 +68,68 @@ class RoadController:
         for car in self.on_road_car:
             if car.step():
                 self.on_road_car.remove(car)
+    
+    def get_car_amount(self):
+        return len(self.on_road_car)
 
 class ICACC:
-    def __init__(self, road_control):
+
+    def __init__(self, road_control, car_amount):
         self.new_car = []
         self.road_control = road_control
+        self.sa = Scheduler.Scheduler()
+        self.turn_left = 0.2*car_amount/14000
+        self.turn_right = 0.2*car_amount/14000
+        self.through = 0.6*car_amount/14000
 
     def generate_car(self, step):
         self.new_car.clear()
-        if random.uniform(0,1) < 0.6:
-            self.new_car.append(Car("route_WE", "WE_{}".format(step)))
-        if random.uniform(0,1) < 0.2:
-            self.new_car.append(Car("route_WN", "WN_{}".format(step)))
-        if random.uniform(0,1) < 0.2:
-            self.new_car.append(Car("route_WS", "WS_{}".format(step)))
-        if random.uniform(0,1) < 0.6:
-            self.new_car.append(Car("route_EW", "EW_{}".format(step)))
-        if random.uniform(0,1) < 0.2:
-            self.new_car.append(Car("route_EN", "EN_{}".format(step)))
-        if random.uniform(0,1) < 0.2:
-            self.new_car.append(Car("route_ES", "ES_{}".format(step)))
-        if random.uniform(0,1) < 0.2:
-            self.new_car.append(Car("route_NE", "NE_{}".format(step)))
-        if random.uniform(0,1) < 0.2:
-            self.new_car.append(Car("route_NW", "NW_{}".format(step)))
-        if random.uniform(0,1) < 0.6:
-            self.new_car.append(Car("route_NS", "NS_{}".format(step)))
-        if random.uniform(0,1) < 0.2:
-            self.new_car.append(Car("route_SE", "SE_{}".format(step)))
-        if random.uniform(0,1) < 0.6:
-            self.new_car.append(Car("route_SN", "SN_{}".format(step)))
-        if random.uniform(0,1) < 0.2:
-            self.new_car.append(Car("route_SW", "SW_{}".format(step)))
-    # TODO: do the optimize here
-    # step parameter is just for test, after the optimize is done the step can be take off
+        count = 0
+        if random.uniform(0,1) < self.through:
+            self.new_car.append(("route_WE", "WE_{}".format(step)))
+            count = count + 1
+        if random.uniform(0,1) < self.turn_left:
+            self.new_car.append(("route_WN", "WN_{}".format(step)))
+            count = count + 1
+        if random.uniform(0,1) < self.turn_right:
+            self.new_car.append(("route_WS", "WS_{}".format(step)))
+            count = count + 1
+        if random.uniform(0,1) < self.through:
+            self.new_car.append(("route_EW", "EW_{}".format(step)))
+            count = count + 1
+        if random.uniform(0,1) < self.turn_right:
+            self.new_car.append(("route_EN", "EN_{}".format(step)))
+            count = count + 1
+        if random.uniform(0,1) < self.turn_left:
+            self.new_car.append(("route_ES", "ES_{}".format(step)))
+            count = count + 1
+        if random.uniform(0,1) < self.turn_left:
+            self.new_car.append(("route_NE", "NE_{}".format(step)))
+            count = count + 1
+        if random.uniform(0,1) < self.turn_right:
+            self.new_car.append(("route_NW", "NW_{}".format(step)))
+            count = count + 1
+        if random.uniform(0,1) < self.through:
+            self.new_car.append(("route_NS", "NS_{}".format(step)))
+            count = count + 1
+        if random.uniform(0,1) < self.turn_right:
+            self.new_car.append(("route_SE", "SE_{}".format(step)))
+            count = count + 1
+        if random.uniform(0,1) < self.through:
+            self.new_car.append(("route_SN", "SN_{}".format(step)))
+            count = count + 1
+        if random.uniform(0,1) < self.turn_left:
+            self.new_car.append(("route_SW", "SW_{}".format(step)))
+            count = count + 1
+        return count
+
     def optimize(self, step):
-        for car in self.new_car:
-            self.road_control.assigned_car(step, car)
+        schedule_car = self.sa.Simulated_Annealing(self.new_car, step)
+        for (route, veh_name, schedule_step) in schedule_car:
+            self.road_control.assigned_car(schedule_step, Car(route, veh_name))
+
+    def get_total_delay_time(self):
+        return self.sa.QueryTotalDelay()
 
 # we need to import python modules from the $SUMO_HOME/tools directory
 if 'SUMO_HOME' in os.environ:
@@ -115,9 +142,9 @@ from sumolib import checkBinary  # noqa
 import traci  # noqa
 
 # simulation setting
-SimulationStepLength = 0.05
+SimulationStepLength = 0.1
 SimulationPeriod = 1800
-SimulationEnding = 2000
+SimulationEnding = 3600
 SimulationDuration = SimulationEnding/SimulationStepLength
 print("Duration of Simulation(steps): " + str(SimulationDuration))
 
@@ -148,23 +175,25 @@ def generate_routefile():
         """, file=routes)
         print("</routes>", file=routes)
 
-def run():
+def run(car_amount):
     """execute the TraCI control loop"""
     random.seed(42)
     step = 0
     road_control = RoadController()
-    intersection_management = ICACC(road_control)
-    while step < 1000:
-        if step % 10 == 0:
+    intersection_management = ICACC(road_control, car_amount)
+    while True:
+        if step < SimulationDuration and step % 10 == 0:
             intersection_management.generate_car(step)
             intersection_management.optimize(step)
         road_control.dispatch_car_from_waiting(step)
         road_control.step()
         traci.simulationStep()
         step += 1
+        if road_control.get_car_amount() == 0 and step >= SimulationDuration:
+            break
     traci.close()
     sys.stdout.flush()
-
+    return intersection_management.get_total_delay_time()
 
 def get_options():
     optParser = optparse.OptionParser()
@@ -176,6 +205,7 @@ def get_options():
 
 # this is the main entry point of this script
 if __name__ == "__main__":
+    car_amount = input("Input the vehicle amount that appear in an hour: ")
     options = get_options()
 
     # this script has been called from the command line. It will start sumo as a
@@ -188,86 +218,7 @@ if __name__ == "__main__":
     # first, generate the route file for this simulation
     generate_routefile()
 
-    # this is the normal way of using traci. sumo is started as a
-    # subprocess and then the python script connects and runs
     traci.start([sumoBinary, "-c", "data/cross.sumocfg",
-                            "--tripinfo-output", "tripinfo.xml"])
-    run()
-
-# N = SimulationPeriod  # number of time steps
-# # demand per second from different directions (probabilities)
-# pWE = 1. / 10   # vehicles from west lane
-# pWN = 1. / 12
-# pWS = 1. / 30
-# pEW = 1. / 12   # vehicles from east lane
-# pEN = 1. / 16
-# pES = 1. / 25
-# pNE = 1. / 14   # vehicles from north lane
-# pNW = 1. / 16
-# pNS = 1. / 18
-# pSE = 1. / 12   # vehicles from south lane
-# pSN = 1. / 16
-# pSW = 1. / 20
-# generate vehicles randomly
-# vehNr = 0
-# for i in range(N):
-#     # vehicles dirving from west
-#     if random.uniform(0, 1) < pWE:
-#         print('    <vehicle id="vWE_%i" type="VehicleA" route="route_WE" depart="%i" />' % (
-#             vehNr, i), file=routes)
-#         vehNr += 1
-#     if random.uniform(0, 1) < pWN:
-#         print('    <vehicle id="vWN_%i" type="VehicleA" route="route_WN" depart="%i" />' % (
-#             vehNr, i), file=routes)
-#         vehNr += 1
-#     if random.uniform(0, 1) < pWS:
-#         print('    <vehicle id="vWS_%i" type="VehicleA" route="route_WS" depart="%i" />' % (
-#             vehNr, i), file=routes)
-#         vehNr += 1
-
-#     # vehicles dirving from east
-#     if random.uniform(0, 1) < pEW:
-#         print('    <vehicle id="vEW_%i" type="VehicleA" route="route_EW" depart="%i" />' % (
-#             vehNr, i), file=routes)
-#         vehNr += 1
-#     if random.uniform(0, 1) < pEN:
-#         print('    <vehicle id="vEN_%i" type="VehicleA" route="route_EN" depart="%i" />' % (
-#             vehNr, i), file=routes)
-#         vehNr += 1
-#     if random.uniform(0, 1) < pES:
-#         print('    <vehicle id="vES_%i" type="VehicleA" route="route_ES" depart="%i" />' % (
-#             vehNr, i), file=routes)
-#         vehNr += 1
-
-#     # vehicles dirving from south
-#     if random.uniform(0, 1) < pSE:
-#         print('    <vehicle id="vSE_%i" type="VehicleA" route="route_SE" depart="%i" />' % (
-#             vehNr, i), file=routes)
-#         vehNr += 1
-#     if random.uniform(0, 1) < pSN:
-#         print('    <vehicle id="vSN_%i" type="VehicleA" route="route_SN" depart="%i" />' % (
-#             vehNr, i), file=routes)
-#         vehNr += 1
-#     if random.uniform(0, 1) < pSW:
-#         print('    <vehicle id="vSW_%i" type="VehicleA" route="route_SW" depart="%i" />' % (
-#             vehNr, i), file=routes)
-#         vehNr += 1
-
-#     # vehicles dirving from north
-#     if random.uniform(0, 1) < pNE:
-#         print('    <vehicle id="vNE_%i" type="VehicleA" route="route_NE" depart="%i" />' % (
-#             vehNr, i), file=routes)
-#         vehNr += 1
-#     if random.uniform(0, 1) < pNS:
-#         print('    <vehicle id="vNS_%i" type="VehicleA" route="route_NS" depart="%i" />' % (
-#             vehNr, i), file=routes)
-#         vehNr += 1
-#     if random.uniform(0, 1) < pNW:
-#         print('    <vehicle id="vNW_%i" type="VehicleA" route="route_NW" depart="%i" />' % (
-#             vehNr, i), file=routes)
-#         vehNr += 1
-
-# traci.vehicle.add("newVeh", "route_WN", typeID="VehicleA", departSpeed="15.0", departLane="2")
-# traci.vehicle.setSpeedMode("newVeh", 0)
-# traci.vehicle.setSpeed("newVeh", 10.0)
-# traci.vehicle.setSpeedMode("newVeh", 0)
+                                "--tripinfo-output", "tripinfo.xml"])
+    average_delay_time = run(int(car_amount))
+    print("Delay time of {} vehicles/hr: {}s/vehicle".format(car_amount, average_delay_time))
