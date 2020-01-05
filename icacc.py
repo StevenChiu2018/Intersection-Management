@@ -8,6 +8,7 @@ import sys
 import optparse
 import random
 import Scheduler
+import pandas as pd
 
 # car setting
 CarMaxSpeed = "15.0"
@@ -73,14 +74,13 @@ class RoadController:
 
 class ICACC:
 
-    turn_left = 0.11
-    turn_right = 0.11
-    through = 0.34
-
-    def __init__(self, road_control):
+    def __init__(self, road_control, car_amount):
         self.new_car = []
         self.road_control = road_control
         self.sa = Scheduler.Scheduler()
+        self.turn_left = 0.2*0.5714*car_amount/2000
+        self.turn_right = 0.2*0.5714*car_amount/2000
+        self.through = 0.6*0.5714*car_amount/2000
 
     def generate_car(self, step):
         self.new_car.clear()
@@ -175,16 +175,15 @@ def generate_routefile():
         """, file=routes)
         print("</routes>", file=routes)
 
-def run():
+def run(car_amount):
     """execute the TraCI control loop"""
     random.seed(42)
     step = 0
     road_control = RoadController()
-    intersection_management = ICACC(road_control)
-    car_amount = 0
+    intersection_management = ICACC(road_control, car_amount)
     while True:
-        if car_amount < 2000 and step < SimulationDuration and step % 10 == 0:
-            car_amount = car_amount + intersection_management.generate_car(step)
+        if step < SimulationDuration and step % 10 == 0:
+            intersection_management.generate_car(step)
             intersection_management.optimize(step)
         road_control.dispatch_car_from_waiting(step)
         road_control.step()
@@ -194,8 +193,7 @@ def run():
             break
     traci.close()
     sys.stdout.flush()
-    print(intersection_management.get_total_delay_time())
-
+    return intersection_management.get_total_delay_time()
 
 def get_options():
     optParser = optparse.OptionParser()
@@ -211,19 +209,27 @@ if __name__ == "__main__":
 
     # this script has been called from the command line. It will start sumo as a
     # server, then connect and run
-    if options.nogui:
-        sumoBinary = checkBinary('sumo')
-    else:
-        sumoBinary = checkBinary('sumo-gui')
+    # if options.nogui:
+    #     sumoBinary = checkBinary('sumo')
+    # else:
+    #     sumoBinary = checkBinary('sumo-gui')
+    sumoBinary = checkBinary('sumo')
 
     # first, generate the route file for this simulation
     generate_routefile()
-
-    # this is the normal way of using traci. sumo is started as a
-    # subprocess and then the python script connects and runs
-    traci.start([sumoBinary, "-c", "data/cross.sumocfg",
-                            "--tripinfo-output", "tripinfo.xml"])
-    run()
+    
+    title = []
+    value = []
+    for car_amount in range(2000, 490, -100):
+        traci.start([sumoBinary, "-c", "data/cross.sumocfg",
+                                "--tripinfo-output", "tripinfo.xml"])
+        consequence = run(car_amount)
+        title.append(car_amount)
+        value.append(consequence)
+    #字典中的key值即為csv中列名
+    dataframe = pd.DataFrame({'title': title,'value': value})
+    #將DataFrame儲存為csv,index表示是否顯示行名，default=True
+    dataframe.to_csv("test.csv",index=False,sep=',')
 
 # N = SimulationPeriod  # number of time steps
 # # demand per second from different directions (probabilities)
