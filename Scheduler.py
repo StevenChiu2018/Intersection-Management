@@ -256,7 +256,10 @@ class Scheduler:
         return Ans
     
     def QueryTotalDelay(self):
-        return ((self.__TotalDelay/StepPerSecond)/self.__VehicleNumber)
+        if self.__VehicleNumber == 0:
+            return (self.__TotalDelay/StepPerSecond)
+        else:
+            return ((self.__TotalDelay/StepPerSecond)/self.__VehicleNumber)
 
 if __name__ == "__main__":
     optimizer = Scheduler()

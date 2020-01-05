@@ -78,9 +78,9 @@ class ICACC:
         self.new_car = []
         self.road_control = road_control
         self.sa = Scheduler.Scheduler()
-        self.turn_left = 0.2*0.5714*car_amount/2000
-        self.turn_right = 0.2*0.5714*car_amount/2000
-        self.through = 0.6*0.5714*car_amount/2000
+        self.turn_left = 0.2*car_amount/14000
+        self.turn_right = 0.2*car_amount/14000
+        self.through = 0.6*car_amount/14000
 
     def generate_car(self, step):
         self.new_car.clear()
@@ -205,106 +205,20 @@ def get_options():
 
 # this is the main entry point of this script
 if __name__ == "__main__":
+    car_amount = input("Input the vehicle amount that appear in an hour: ")
     options = get_options()
 
     # this script has been called from the command line. It will start sumo as a
     # server, then connect and run
-    # if options.nogui:
-    #     sumoBinary = checkBinary('sumo')
-    # else:
-    #     sumoBinary = checkBinary('sumo-gui')
-    sumoBinary = checkBinary('sumo')
+    if options.nogui:
+        sumoBinary = checkBinary('sumo')
+    else:
+        sumoBinary = checkBinary('sumo-gui')
 
     # first, generate the route file for this simulation
     generate_routefile()
-    
-    title = []
-    value = []
-    for car_amount in range(2000, 490, -100):
-        traci.start([sumoBinary, "-c", "data/cross.sumocfg",
+
+    traci.start([sumoBinary, "-c", "data/cross.sumocfg",
                                 "--tripinfo-output", "tripinfo.xml"])
-        consequence = run(car_amount)
-        title.append(car_amount)
-        value.append(consequence)
-    #字典中的key值即為csv中列名
-    dataframe = pd.DataFrame({'title': title,'value': value})
-    #將DataFrame儲存為csv,index表示是否顯示行名，default=True
-    dataframe.to_csv("test.csv",index=False,sep=',')
-
-# N = SimulationPeriod  # number of time steps
-# # demand per second from different directions (probabilities)
-# pWE = 1. / 10   # vehicles from west lane
-# pWN = 1. / 12
-# pWS = 1. / 30
-# pEW = 1. / 12   # vehicles from east lane
-# pEN = 1. / 16
-# pES = 1. / 25
-# pNE = 1. / 14   # vehicles from north lane
-# pNW = 1. / 16
-# pNS = 1. / 18
-# pSE = 1. / 12   # vehicles from south lane
-# pSN = 1. / 16
-# pSW = 1. / 20
-# generate vehicles randomly
-# vehNr = 0
-# for i in range(N):
-#     # vehicles dirving from west
-#     if random.uniform(0, 1) < pWE:
-#         print('    <vehicle id="vWE_%i" type="VehicleA" route="route_WE" depart="%i" />' % (
-#             vehNr, i), file=routes)
-#         vehNr += 1
-#     if random.uniform(0, 1) < pWN:
-#         print('    <vehicle id="vWN_%i" type="VehicleA" route="route_WN" depart="%i" />' % (
-#             vehNr, i), file=routes)
-#         vehNr += 1
-#     if random.uniform(0, 1) < pWS:
-#         print('    <vehicle id="vWS_%i" type="VehicleA" route="route_WS" depart="%i" />' % (
-#             vehNr, i), file=routes)
-#         vehNr += 1
-
-#     # vehicles dirving from east
-#     if random.uniform(0, 1) < pEW:
-#         print('    <vehicle id="vEW_%i" type="VehicleA" route="route_EW" depart="%i" />' % (
-#             vehNr, i), file=routes)
-#         vehNr += 1
-#     if random.uniform(0, 1) < pEN:
-#         print('    <vehicle id="vEN_%i" type="VehicleA" route="route_EN" depart="%i" />' % (
-#             vehNr, i), file=routes)
-#         vehNr += 1
-#     if random.uniform(0, 1) < pES:
-#         print('    <vehicle id="vES_%i" type="VehicleA" route="route_ES" depart="%i" />' % (
-#             vehNr, i), file=routes)
-#         vehNr += 1
-
-#     # vehicles dirving from south
-#     if random.uniform(0, 1) < pSE:
-#         print('    <vehicle id="vSE_%i" type="VehicleA" route="route_SE" depart="%i" />' % (
-#             vehNr, i), file=routes)
-#         vehNr += 1
-#     if random.uniform(0, 1) < pSN:
-#         print('    <vehicle id="vSN_%i" type="VehicleA" route="route_SN" depart="%i" />' % (
-#             vehNr, i), file=routes)
-#         vehNr += 1
-#     if random.uniform(0, 1) < pSW:
-#         print('    <vehicle id="vSW_%i" type="VehicleA" route="route_SW" depart="%i" />' % (
-#             vehNr, i), file=routes)
-#         vehNr += 1
-
-#     # vehicles dirving from north
-#     if random.uniform(0, 1) < pNE:
-#         print('    <vehicle id="vNE_%i" type="VehicleA" route="route_NE" depart="%i" />' % (
-#             vehNr, i), file=routes)
-#         vehNr += 1
-#     if random.uniform(0, 1) < pNS:
-#         print('    <vehicle id="vNS_%i" type="VehicleA" route="route_NS" depart="%i" />' % (
-#             vehNr, i), file=routes)
-#         vehNr += 1
-#     if random.uniform(0, 1) < pNW:
-#         print('    <vehicle id="vNW_%i" type="VehicleA" route="route_NW" depart="%i" />' % (
-#             vehNr, i), file=routes)
-#         vehNr += 1
-
-# traci.vehicle.add("newVeh", "route_WN", typeID="VehicleA", departSpeed="15.0", departLane="2")
-# traci.vehicle.setSpeedMode("newVeh", 0)
-# traci.vehicle.setSpeed("newVeh", 10.0)
-# traci.vehicle.setSpeedMode("newVeh", 0)
+    average_delay_time = run(int(car_amount))
+    print("Delay time of {} vehicles/hr: {}s/vehicle".format(car_amount, average_delay_time))
