@@ -143,10 +143,9 @@ import traci  # noqa
 
 # simulation setting
 SimulationStepLength = 0.1
-SimulationPeriod = 1800
 SimulationEnding = 3600
 SimulationDuration = SimulationEnding/SimulationStepLength
-print("Duration of Simulation(steps): " + str(SimulationDuration))
+print("Duration of Simulation: " + str(SimulationEnding) + " seconds (" + str(SimulationDuration)+" steps)")
 
 def generate_routefile():
     random.seed(42)  # make tests reproducible

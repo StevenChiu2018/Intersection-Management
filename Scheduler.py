@@ -9,9 +9,6 @@ MinimumGap = 1.0
 VehicleLength = 5.0
 LaneDistance = 150
 FixedSpeed = 15.0
-SimulationPeriod = 3600
-SimulationEnding = 4000
-SimulationDuration = SimulationEnding/SimulationStepLength 
 
 
 class Scheduler:
