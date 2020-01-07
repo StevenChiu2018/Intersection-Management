@@ -21,4 +21,4 @@ With these 2 adjustments, we could still verify the correctness of constraints. 
 
 ## Simulation Results
 - Youtube: 
-<iframe width="560" height="315"src="https://www.youtube.com/embed/mhBlxEJIuzI" frameborder="0" frameborder="0" allowfullscreen>
+[![](http://img.youtube.com/vi/mhBlxEJIuzI/0.jpg)](http://www.youtube.com/watch?v=mhBlxEJIuzI "Implementation of Intersection Management")
