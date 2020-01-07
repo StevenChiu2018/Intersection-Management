@@ -20,5 +20,7 @@ However, we found we couldn't designate the arrival time of vehicle at the stop-
 With these 2 adjustments, we could still verify the correctness of constraints. (Simulator would give us warning of potential collisions.)
 
 ## Simulation Results
-- Youtube: 
-[![](http://img.youtube.com/vi/mhBlxEJIuzI/0.jpg)](http://www.youtube.com/watch?v=mhBlxEJIuzI "Implementation of Intersection Management")
+
+- Youtube: Simulation of Intersection Management
+
+[![](http://img.youtube.com/vi/mhBlxEJIuzI/0.jpg)](http://www.youtube.com/watch?v=mhBlxEJIuzI "Simulation of Intersection Management")
